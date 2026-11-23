@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="cosmos">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Más allá de la "Partícula de Dios" | Campo de Higgs</title>
+  <meta
+    name="description"
+    content="Artículo interactivo de divulgación científica sobre el Campo de Higgs, la ruptura espontánea de simetría y la masa de la materia ordinaria."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="reading-progress" aria-hidden="true">
+    <div class="reading-progress__bar" id="reading-progress-bar"></div>
+  </div>
+
+  <header class="hero" data-theme-section="cosmos">
+    <canvas id="hero-field-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+    <div class="hero__vignette" aria-hidden="true"></div>
+
+    <div class="hero__content container">
+      <div class="hero__meta">
+        <span class="hero__institution">Universidad Nacional de Colombia &mdash; Sede de La Paz</span>
+        <span class="hero__course">Partículas y cosmología</span>
+      </div>
+
+      <h1 class="hero__title">
+        Más allá de la &laquo;Partícula de Dios&raquo;: Qué es realmente el Campo de Higgs y por qué sin él no existirían los átomos
+      </h1>
+
+      <p class="hero__subtitle">
+        Un recorrido interactivo por la ruptura espontánea de simetría, la verdadera fuente de nuestra masa y el mecanismo cuántico que permitió que la materia pudiera ensamblarse.
+      </p>
+
+      <div class="hero__authors">
+        <span class="hero__authors-label">Autores</span>
+        <p class="hero__authors-names">Daniel Enrique Arias Montero &middot; Abraham José Gómez Sarmiento</p>
+      </div>
+
+      <div class="hero__hint">
+        <span>Mueve el cursor o toca la malla cuántica para excitar el campo</span>
+        <a href="#introduccion" class="hero__scroll-link">Iniciar lectura</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="introduccion" class="chapter" data-theme-section="editorial">
+      <div class="prose container">
+        <p class="chapter__eyebrow">Introducción</p>
+        <h2 class="chapter__title">El sobrenombre que confundió a toda una generación</h2>
+
+        <p class="lead">
+          Pocas ideas de la física moderna han cargado con un apodo tan famoso &mdash;y tan engañoso&mdash; como el bosón de Higgs. En 1993, el premio Nobel Leon Lederman publicó un libro de divulgación sobre la búsqueda de esta esquiva pieza del universo <a class="cite" href="#ref-9">[9]</a>. Según contó el propio físico, su intención original era llamarla la &laquo;partícula maldita&raquo; (<em>the goddamn particle</em>), frustrado por lo costosa y difícil que resultaba de detectar. Su editor prefirió recortar el adjetivo y dejarlo en <em>La Partícula de Dios</em>. El golpe comercial funcionó, pero dejó tras de sí dos malentendidos difíciles de borrar: que se trata de una entidad mística y que una sola partícula es la responsable de darle peso a todo lo que existe.
+        </p>
+
+        <p>
+          La realidad física es a la vez más sobria y mucho más asombrosa. Lo verdaderamente fundamental no es la partícula &mdash;el bosón&mdash;, sino el <strong>campo de Higgs</strong>: una entidad cuántica invisible que permea cada rincón del espacio, incluso el vacío más frío entre galaxias. El bosón de Higgs no es el &laquo;pegamento&raquo; ni el &laquo;motor&raquo; de la masa; es apenas una vibración efímera de ese campo cuando lo golpeamos con suficiente energía.
+        </p>
+
+        <p>
+          Y hay una sorpresa aún mayor. Si ahora mismo te subes a una báscula, casi nada del número que aparece en pantalla proviene directamente de la masa que el campo de Higgs les otorga a las partículas de tu cuerpo. Sin embargo, si alguien pudiera girar un interruptor cósmico y apagar ese campo durante una fracción de segundo, tu cuerpo, la Tierra y cada estrella del cosmos se desintegrarían de inmediato en una nube de partículas sin estructura.
+        </p>
+
+        <p>
+          Para entender esta paradoja aparente &mdash;cómo algo que aporta apenas una fracción diminuta de tu masa es al mismo tiempo indispensable para que existan los átomos&mdash; tenemos que bajar más allá de las células, las moléculas y los núcleos, hasta el lenguaje fundamental con el que está escrito el universo.
+        </p>
+      </div>
+    </section>
+
+    <section id="seccion-1" class="chapter" data-theme-section="editorial">
+      <div class="prose container">
+        <p class="chapter__eyebrow">Sección 01</p>
+        <h2 class="chapter__title">El mito del 100 %: de dónde sale realmente tu masa</h2>
+
+        <p>
+          Si el titular más repetido sobre el campo de Higgs afirma que &laquo;le da masa a todo&raquo;, conviene someter esa frase a una prueba directa: abrir un átomo y hacer cuentas.
+        </p>
+
+        <p>
+          Casi la totalidad de la masa de la materia ordinaria &mdash;tu cuerpo, una roca, el aire que respiras&mdash; no está en los electrones que orbitan alrededor del átomo, sino concentrada en su núcleo, compuesto por protones y neutrones. Un protón tiene una masa cercana a $938.3\text{ MeV}/c^2$ (en física de partículas la masa se expresa en unidades de energía divididas por $c^2$, gracias a la equivalencia de Einstein) y es aproximadamente 1836 veces más masivo que un electrón.
+        </p>
+
+        <p>
+          Pero el protón no es una esfera sólida e indivisible. En su interior habitan tres partículas elementales llamadas <strong>quarks de valencia</strong>: dos quarks <em>arriba</em> (<em>up</em>, $u$) y un quark <em>abajo</em> (<em>down</em>, $d$). El campo de Higgs sí les otorga masa a estos quarks. ¿Cuánto suman sus masas desnudas? Un quark <em>up</em> tiene una masa de unos $2.2\text{ MeV}/c^2$ y un quark <em>down</em> ronda los $4.7\text{ MeV}/c^2$ <a class="cite" href="#ref-6">[6]</a>. Si sumamos los tres:
+        </p>
+
+        <div class="equation-display">
+          $$2m_u + m_d \approx 9\text{ MeV}/c^2$$
+        </div>
+
+        <p>
+          El resultado desconcierta a primera vista: los tres quarks que conforman el protón explican <strong>apenas alrededor del 1 % de su masa total</strong>. ¿Dónde está escondido el otro 99 %?
+        </p>
+
+        <p>
+          La respuesta no viene del campo de Higgs, sino de la <strong>interacción nuclear fuerte</strong>, descrita por la cromodinámica cuántica (QCD, por sus siglas en inglés), y de la ecuación más célebre del siglo XX, leída en la dirección que casi nunca se menciona: $m = E/c^2$. La fórmula de Einstein no solo dice que la masa puede convertirse en energía; dice que <strong>la energía confinada en un sistema en reposo se comporta exactamente como masa</strong>.
+        </p>
+
+        <p>
+          Dentro de un protón, los quarks nunca están quietos. Se mueven a velocidades cercanas a la de la luz, atrapados en un espacio de menos de una billonésima de milímetro por el intercambio constante de <strong>gluones</strong> &mdash;las partículas mensajeras de la fuerza fuerte, que no tienen masa propia&mdash; y rodeados por un mar hirviente de pares quark-antiquark virtuales que aparecen y desaparecen constantemente. La energía cinética de esos quarks confinados y la energía almacenada en el campo de gluones que los mantiene atados son colosales. Al medir el protón desde afuera, toda esa energía interna encerrada se manifiesta como inercia y peso: constituye cerca del 99 % de la masa de los protones y neutrones <a class="cite" href="#ref-7">[7]</a><a class="cite" href="#ref-8">[8]</a>.
+        </p>
+
+        <p>
+          Dicho de forma directa: <strong>la mayor parte de tu masa es energía pura de la interacción fuerte</strong>. Incluso si el campo de Higgs no existiera, los protones seguirían conservando casi toda su masa gracias a la dinámica de la QCD. Entonces, si el campo de Higgs solo explica cerca del 1 % de la masa de la materia ordinaria, ¿por qué dedicamos medio siglo y uno de los instrumentos más complejos de la historia a buscarlo?
+        </p>
+
+        <figure class="lab-card reveal" id="lab-proton">
+          <div class="lab-card__header">
+            <span class="lab-card__tag">Laboratorio 01 &middot; Canvas 2D</span>
+            <h3 class="lab-card__title">Desglose de la masa del protón</h3>
+            <p class="lab-card__desc">
+              Compara la contribución directa de las masas de los quarks de valencia (~1 %) frente a la energía cinética y de enlace de los gluones (~99 %).
+            </p>
+          </div>
+          <div class="lab-card__stage" data-lab-mount="proton">
+            <p class="lab-card__placeholder">Espacio reservado para el módulo <code>src/labs/protonMassLab.js</code></p>
+          </div>
+        </figure>
+
+        <details class="physics-box">
+          <summary class="physics-box__summary">
+            <span class="physics-box__label">Ver la física detrás</span>
+            <span class="physics-box__topic">La descomposición de la masa del protón</span>
+          </summary>
+          <div class="physics-box__body">
+            <p>
+              En la cromodinámica cuántica moderna, la masa de un hadrón como el protón se calcula a partir del valor esperado del tensor energía-momento de la QCD en el estado de un protón en reposo, un cálculo verificado con alta precisión mediante simulaciones numéricas de QCD en retículo (<em>lattice QCD</em>) <a class="cite" href="#ref-7">[7]</a>.
+            </p>
+            <p>
+              Aunque la suma de las masas de corriente de los tres quarks de valencia ($2m_u + m_d$) es de apenas $\sim 9\text{ MeV}/c^2$ ($\sim 1\%$ de $m_p = 938.272\text{ MeV}/c^2$ <a class="cite" href="#ref-6">[6]</a>), en la descomposición formal de Ji la masa del protón se reparte entre cuatro contribuciones: la energía cinética de los quarks, la energía de los campos de gluones, la anomalía de traza de la QCD (un efecto puramente cuántico ligado a la escala de confinamiento $\Lambda_{\text{QCD}}$) y el término sigma de los quarks (que incluye el efecto de las masas de los quarks sobre el condensado interno y aporta cerca del 9 %). En cualquier lectura, la inmensa mayoría de la masa hadrónica emerge dinámicamente de la interacción fuerte, no del valor directo de las masas de los quarks.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="seccion-2" class="chapter" data-theme-section="quantum">
+      <div class="prose container">
+        <p class="chapter__eyebrow">Sección 02</p>
+        <h2 class="chapter__title">Qué es realmente un campo cuántico (y por qué la &laquo;melaza&raquo; no es toda la historia)</h2>
+
+        <p>
+          Para entender qué hace realmente el campo de Higgs hay que cambiar primero la imagen mental que solemos tener del universo. En la escuela aprendemos a imaginar las partículas fundamentales como diminutas esferas sólidas flotando en un espacio vacío. Sin embargo, la teoría más precisa que ha construido la humanidad &mdash;la <strong>Teoría Cuántica de Campos</strong>&mdash; describe un escenario completamente distinto.
+        </p>
+
+        <p>
+          Según esta teoría, los ingredientes básicos de la realidad no son bolitas, sino <strong>campos</strong>: entidades continuas que se extienden por todo el espacio y el tiempo, como la temperatura de una habitación o la superficie de un océano infinito. Existe un campo electromagnético, un campo electrónico, un campo para los quarks <em>up</em>, otro para los quarks <em>down</em>, y así con cada familia del Modelo Estándar.
+        </p>
+
+        <p>
+          ¿Y qué es entonces una partícula? Es una <strong>excitación localizada y cuantizada de su propio campo</strong>: un pequeño paquete de ondas, un pulso mínimo de energía que viaja por ese tejido continuo. Un fotón es una vibración del campo electromagnético; un electrón es una onda discreta del campo electrónico. El espacio &laquo;vacío&raquo; no es la nada absoluta: es el estado en el que casi todos estos campos se encuentran en su nivel más bajo de energía, en calma.
+        </p>
+
+        <p class="emphasis-line">Casi todos, excepto uno.</p>
+
+        <p>
+          El <strong>campo de Higgs</strong> tiene una propiedad insólita que lo distingue de todos los demás campos conocidos: incluso en el vacío perfecto, a temperatura cercana al cero absoluto y sin ninguna partícula alrededor, <strong>su valor promedio no es cero</strong>. Mientras el campo electromagnético en reposo vale cero en promedio, el campo de Higgs mantiene un valor de fondo constante en todo el universo observable, un océano basal siempre encendido.
+        </p>
+
+        <p>
+          Es en ese océano donde entra en juego el origen de la masa de las <strong>partículas elementales</strong> (electrones, muones, quarks y los bosones $W^\pm$ y $Z^0$). En física, la masa no es sinónimo de &laquo;tamaño&raquo; ni de &laquo;cantidad de relleno&raquo;: la masa es <strong>inercia</strong>, es decir, la resistencia de un objeto a cambiar su estado de movimiento cuando se le aplica una fuerza.
+        </p>
+
+        <p>
+          Durante décadas, la divulgación popular ha comparado el campo de Higgs con una piscina de melaza o con una sala llena de gente rodeando a una celebridad (la famosa metáfora creada por el físico David Miller en 1993). Ambas analogías son útiles como primera aproximación, pero esconden una trampa que conviene corregir: <strong>la melaza genera fricción</strong>. Si una partícula viajara por un fluido viscoso, perdería energía y terminaría deteniéndose, violando la primera ley de Newton y la relatividad especial de Einstein. En el universo real, un electrón lanzado en el vacío viaja a velocidad constante para siempre; el campo de Higgs no lo frena.
+        </p>
+
+        <p>
+          ¿Cómo otorga entonces resistencia a la aceleración sin frenar el movimiento uniforme? La clave está en una propiedad cuántica llamada <strong>quiralidad</strong> (una suerte de &laquo;orientación interna&raquo; izquierda o derecha de las partículas elementales de materia). En el Modelo Estándar, un electrón sin masa viajaría siempre a la velocidad de la luz y mantendría su quiralidad fija para siempre. Pero al existir un campo de Higgs encendido en todo el espacio, el electrón interactúa continuamente con ese fondo, <strong>alternando entre su versión &laquo;izquierda&raquo; y su versión &laquo;derecha&raquo;</strong>. Ese vaivén incesante con el campo de fondo le impide viajar a la velocidad de la luz y lo obliga a comportarse como un objeto con inercia.
+        </p>
+
+        <p>
+          No todas las partículas interactúan con la misma intensidad con el campo de Higgs. La fuerza de ese enganche se mide mediante un número propio de cada partícula llamado <strong>acoplamiento de Yukawa</strong>:
+        </p>
+
+        <ul class="editorial-list">
+          <li>
+            <strong>El fotón y el gluón</strong> no interactúan en absoluto con el campo de Higgs. Su acoplamiento es exactamente cero; por eso carecen de masa y viajan siempre a la velocidad de la luz $c$.
+          </li>
+          <li>
+            <strong>El electrón</strong> interactúa muy débilmente con el campo. Ese roce sutil le da una masa diminuta de $0.511\text{ MeV}/c^2$, pero suficiente para anclarlo a los núcleos atómicos.
+          </li>
+          <li>
+            <strong>El quark <em>top</em></strong> (el más pesado de todas las partículas elementales conocidas) se acopla casi con la máxima fuerza natural posible, alcanzando una masa de unos $172.6\text{ GeV}/c^2$ <a class="cite" href="#ref-6">[6]</a>: cerca de 340 000 veces más masivo que un electrón y casi tan pesado como un átomo entero de oro, pese a ser una partícula puntual sin estructura interna.
+          </li>
+        </ul>
+
+        <p>
+          El Modelo Estándar explica <em>cómo</em> ese acoplamiento se traduce en masa, pero aún guarda un misterio profundo: no predice por qué el acoplamiento del quark <em>top</em> es cientos de miles de veces mayor que el del electrón. Esos números deben medirse en los experimentos.
+        </p>
+
+        <figure class="lab-card reveal" id="lab-yukawa">
+          <div class="lab-card__header">
+            <span class="lab-card__tag">Laboratorio 02 &middot; Canvas 2D</span>
+            <h3 class="lab-card__title">Acoplamiento de Yukawa e intercambio de quiralidad</h3>
+            <p class="lab-card__desc">
+              Selecciona distintas partículas elementales para observar cómo interactúan con el campo de fondo uniforme sin sufrir fricción clásica.
+            </p>
+          </div>
+          <div class="lab-card__stage" data-lab-mount="yukawa">
+            <p class="lab-card__placeholder">Espacio reservado para el módulo <code>src/labs/yukawaCoupling.js</code></p>
+          </div>
+        </figure>
+
+        <details class="physics-box">
+          <summary class="physics-box__summary">
+            <span class="physics-box__label">Ver la física detrás</span>
+            <span class="physics-box__topic">Acoplamiento de Yukawa y masa de los fermiones</span>
+          </summary>
+          <div class="physics-box__body">
+            <p>
+              En el lagrangiano del Modelo Estándar, un término de masa directo de la forma $-m\bar{\psi}\psi = -m(\bar{\psi}_L \psi_R + \bar{\psi}_R \psi_L)$ está prohibido antes de la ruptura de simetría, porque las componentes quirales izquierdas ($\psi_L$) y derechas ($\psi_R$) se transforman de manera distinta bajo la simetría electrodébil $SU(2)_L \times U(1)_Y$. Para construir un término invariante de gauge se introduce la interacción de Yukawa entre los fermiones y el doblete escalar de Higgs $\phi$. Una vez que el campo adquiere su valor de expectación en el vacío $v \approx 246.22\text{ GeV}$ <a class="cite" href="#ref-6">[6]</a>, el término genera de forma natural la masa del fermión:
+            </p>
+            <div class="equation-display">
+              $$m_f = \frac{y_f \, v}{\sqrt{2}}$$
+            </div>
+            <p>
+              donde $y_f$ es la constante adimensional de acoplamiento de Yukawa de cada partícula ($y_e \approx 2.9 \times 10^{-6}$ para el electrón y $y_t \approx 0.99$ para el quark <em>top</em>). Los neutrinos en el Modelo Estándar mínimo carecen de contraparte derecha y resultarían sin masa; sin embargo, el fenómeno experimental de las oscilaciones de neutrinos demostró que sí poseen masas diminutas (muy inferiores a $1\text{ eV}/c^2$), abriendo una de las principales ventanas hacia física más allá del Modelo Estándar.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="seccion-3" class="chapter" data-theme-section="symmetry">
+      <div class="prose container">
+        <p class="chapter__eyebrow">Sección 03</p>
+        <h2 class="chapter__title">Ruptura espontánea de simetría: el instante en que el universo eligió un fondo</h2>
+
+        <p>
+          ¿Por qué el campo de Higgs está encendido en todo el espacio mientras los demás campos descansan en cero? Esta pregunta nace de una crisis teórica que desconcertó a los físicos a comienzos de la década de 1960.
+        </p>
+
+        <p>
+          Para entonces, se sabía que las fuerzas fundamentales obedecen principios matemáticos muy estrictos llamados <strong>simetrías de gauge</strong>. Esas simetrías explicaban a la perfección el electromagnetismo, pero exigían una condición incómoda: las partículas portadoras de las fuerzas debían tener masa exactamente nula. Eso encajaba con el fotón, pero chocaba de frente con la <strong>fuerza nuclear débil</strong> (responsable de la desintegración radiactiva y de las reacciones nucleares que encienden el Sol). Como la fuerza débil solo actúa a distancias minúsculas, sus partículas mensajeras &mdash;los bosones $W^\pm$ y $Z^0$&mdash; debían ser muy pesadas. Si los físicos añadían sus masas &laquo;a mano&raquo; en las ecuaciones, la simetría se destruía y la teoría colapsaba en predicciones infinitas sin sentido.
+        </p>
+
+        <p>
+          En 1964, tres grupos de investigadores independientes &mdash;François Englert y Robert Brout en Bruselas <a class="cite" href="#ref-1">[1]</a>; Peter Higgs en Edimburgo <a class="cite" href="#ref-2">[2]</a>; y Gerald Guralnik, Carl Hagen y Tom Kibble en Londres <a class="cite" href="#ref-3">[3]</a>&mdash;, inspirados en ideas previas de Philip Anderson sobre superconductores, encontraron una salida brillante: <strong>las leyes de la naturaleza pueden ser perfectamente simétricas, mientras que el estado real del universo no lo es</strong>. A este fenómeno se le llama <strong>ruptura espontánea de simetría</strong>.
+        </p>
+
+        <p>
+          Imagina un lápiz afilado en equilibrio vertical exacto sobre la punta. El sistema es completamente simétrico: ninguna dirección horizontal es especial frente a otra. Pero esa posición vertical es inestable; tiene demasiada energía potencial. Basta la más mínima perturbación para que el lápiz caiga sobre la mesa. Una vez tendido, señala una dirección concreta y la simetría aparente se ha roto, aunque las leyes de la gravedad que gobiernan la escena sigan siendo tan simétricas como antes.
+        </p>
+
+        <p class="emphasis-line">Algo equivalente ocurrió con el campo de Higgs en la infancia del cosmos.</p>
+
+        <p>
+          En los primeros instantes tras el Big Bang, cuando el universo era un plasma infernalmente caliente (por encima de una temperatura crítica cercana a $10^{15}\text{ K}$, equivalente a unos $160\text{ GeV}$), el estado de mínima energía del campo de Higgs estaba en cero. El potencial energético del campo tenía la forma de un cuenco simple: la canica reposaba en el centro, la simetría electrodébil era plena y tanto electrones como quarks y bosones $W$ y $Z$ carecían por completo de masa.
+        </p>
+
+        <p>
+          Pero a medida que el universo se expandió y se enfrió &mdash;apenas unas <strong>diez billonésimas de segundo ($10^{-11}\text{ s}$) después del Big Bang</strong>&mdash;, la geometría del potencial del campo cambió de forma en una transición suave (<em>crossover</em>). El fondo del cuenco se elevó en el centro y se hundió en un surco circular a su alrededor, adoptando el célebre perfil de un <strong>sombrero mexicano</strong> (o el fondo elevado de una botella de vino).
+        </p>
+
+        <p>
+          El punto central donde el campo vale cero se convirtió en una cima inestable, igual que el lápiz sobre su punta. Para reducir su energía, el campo de Higgs rodó hacia el valle circular del sombrero. En cualquier punto de ese valle, el campo ya no vale cero: quedó congelado en un valor distinto de cero en todo el cosmos.
+        </p>
+
+        <p>
+          Este mecanismo &mdash;conocido formalmente como <strong>mecanismo de Brout-Englert-Higgs</strong>&mdash; resolvió dos acertijos de un solo golpe:
+        </p>
+
+        <ol class="editorial-list editorial-list--numbered">
+          <li>
+            <strong>Les dio masa a los bosones $W^\pm$ y $Z^0$ sin romper la coherencia matemática de la teoría.</strong> Al interactuar con el campo de Higgs congelado en el valle, los tres modos de oscilación a lo largo del fondo circular del sombrero fueron absorbidos por los bosones $W^+$, $W^-$ y $Z^0$, que pasaron de ser sin masa a convertirse en gigantes de $80.4\text{ GeV}/c^2$ y $91.2\text{ GeV}/c^2$ <a class="cite" href="#ref-6">[6]</a>. El fotón, en cambio, permaneció ajeno al condensado y conservó su masa nula: así se separaron definitivamente el electromagnetismo y la fuerza débil.
+          </li>
+          <li>
+            <strong>Predijo la existencia de una nueva partícula: el bosón de Higgs.</strong> Si el campo ya reposa en el valle circular del sombrero, todavía puede vibrar hacia arriba y hacia abajo por las paredes empinadas del surco (la dirección radial). Esa oscilación radial cuantizada, excitada mediante colisiones de altísima energía, es exactamente el <strong>bosón de Higgs</strong>: la prueba tangible de que el sombrero mexicano existe.
+          </li>
+        </ol>
+
+        <figure class="lab-card reveal" id="lab-mexican-hat">
+          <div class="lab-card__header">
+            <span class="lab-card__tag">Laboratorio 03 &middot; Three.js WebGL</span>
+            <h3 class="lab-card__title">Potencial del Sombrero Mexicano en 3D</h3>
+            <p class="lab-card__desc">
+              Rota la superficie del potencial escalar, reduce la temperatura cósmica y compara los modos angulares frente a la excitación radial del bosón de Higgs.
+            </p>
+          </div>
+          <div class="lab-card__stage lab-card__stage--tall" data-lab-mount="mexican-hat">
+            <p class="lab-card__placeholder">Espacio reservado para el módulo <code>src/labs/mexicanHat3D.js</code></p>
+          </div>
+        </figure>
+
+        <details class="physics-box">
+          <summary class="physics-box__summary">
+            <span class="physics-box__label">Ver la física detrás</span>
+            <span class="physics-box__topic">El potencial escalar y la ruptura $SU(2)_L \times U(1)_Y \to U(1)_{\text{em}}$</span>
+          </summary>
+          <div class="physics-box__body">
+            <p>
+              El campo de Higgs en el Modelo Estándar mínimo es un doblete complejo de $SU(2)_L$ con cuatro grados de libertad reales, sometido al potencial:
+            </p>
+            <div class="equation-display">
+              $$V(\phi) = \mu^2 (\phi^\dagger \phi) + \lambda (\phi^\dagger \phi)^2$$
+            </div>
+            <p>
+              Para que el potencial sea acotado inferiormente se exige $\lambda \gt 0$. Cuando las correcciones térmicas dominan ($T \gt T_c$), el coeficiente cuadrático efectivo es positivo y el mínimo único está en $|\phi| = 0$. Al enfriarse el universo, el parámetro $\mu^2$ se vuelve negativo ($\mu^2 \lt 0$), de modo que el conjunto de mínimos forma una esfera degenerada definida por:
+            </p>
+            <div class="equation-display">
+              $$|\phi| = \sqrt{\frac{-\mu^2}{2\lambda}} = \frac{v}{\sqrt{2}}, \qquad v \approx 246.22\text{ GeV}$$
+            </div>
+            <p>
+              Al elegir un estado de vacío particular se rompe espontáneamente $SU(2)_L \times U(1)_Y$ hasta el subgrupo residual $U(1)_{\text{em}}$ del electromagnetismo. Tres de los cuatro grados de libertad del doblete (los modos de Nambu-Goldstone) se convierten en las polarizaciones longitudinales de los bosones masivos $W^\pm$ y $Z^0$, cuyas masas a nivel árbol son $m_W = \frac{1}{2} g v$ y $m_Z = \frac{1}{2} \sqrt{g^2 + g'^2}\, v$. El único grado de libertad escalar remanente corresponde al bosón de Higgs físico $h$, de espín $0$ y paridad positiva ($J^{PC} = 0^{++}$), con masa $m_H = \sqrt{2\lambda}\, v \approx 125.2\text{ GeV}/c^2$ <a class="cite" href="#ref-6">[6]</a>.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="seccion-4" class="chapter" data-theme-section="editorial">
+      <div class="prose container">
+        <p class="chapter__eyebrow">Sección 04</p>
+        <h2 class="chapter__title">Un universo sin Campo de Higgs: por qué desaparecerían los átomos</h2>
+
+        <p>
+          Volvamos ahora a la paradoja con la que abrimos este recorrido. Ya vimos que el campo de Higgs aporta apenas alrededor del 1 % de la masa de los protones y neutrones. Si mañana redujéramos gradualmente el valor del campo de Higgs hasta cero, los núcleos de tu cuerpo no perderían casi peso. ¿Por qué afirmamos entonces que sin él no existirían los átomos?
+        </p>
+
+        <p>
+          La respuesta está en el miembro más ligero y discreto del átomo: <strong>el electrón</strong>.
+        </p>
+
+        <p>
+          A diferencia del protón, el electrón no está formado por quarks ni siente la interacción nuclear fuerte. Es una partícula verdaderamente elemental; <strong>el 100 % de su masa proviene de su acoplamiento con el campo de Higgs</strong>. Aunque su masa parezca insignificante ($0.511\text{ MeV}/c^2$), desempeña un papel estructural irremplazable: es la que fija el tamaño de todos los átomos del universo.
+        </p>
+
+        <p>
+          En mecánica cuántica, el tamaño típico de un átomo de hidrógeno viene dado por el <strong>radio de Bohr</strong> ($a_0 \approx 0.053\text{ nanómetros}$), y ese radio es <strong>inversamente proporcional a la masa del electrón</strong>. Cuanto menos masivo es el electrón, más se expande su nube de probabilidad alrededor del núcleo, debido al principio de incertidumbre de Heisenberg: encerrar una partícula muy liviana en un volumen pequeño exige imprimirle una energía cinética enorme.
+        </p>
+
+        <p>Observa qué ocurre si giramos el dial cósmico del campo de Higgs hacia abajo:</p>
+
+        <ul class="editorial-list">
+          <li>
+            Al <strong>50 %</strong> de su intensidad actual, la masa del electrón cae a la mitad y cada átomo duplica su radio; toda la química conocida cambia drásticamente sus energías de enlace.
+          </li>
+          <li>
+            Al <strong>10 %</strong>, los átomos se inflan diez veces, las moléculas biológicas se vuelven frágiles y se deshacen con el calor ambiente más leve.
+          </li>
+          <li>
+            Al llegar al <strong>0 %</strong>, la masa del electrón se anula por completo. El radio de Bohr tiende al infinito. Un electrón sin masa está condenado por la relatividad especial a viajar siempre a la velocidad de la luz $c$. La atracción eléctrica del protón ya no puede vencer la energía cuántica necesaria para confinarlo: <strong>no existe ningún estado ligado estable</strong>. Los electrones escapan de los núcleos a la velocidad de la luz y los átomos dejan de existir.
+          </li>
+        </ul>
+
+        <p>
+          Y las consecuencias no terminan en el electrón. En un universo sin campo de Higgs, la física nuclear también se desmoronaría de dos maneras decisivas:
+        </p>
+
+        <ul class="editorial-list">
+          <li>
+            <strong>El equilibrio protón-neutrón:</strong> en nuestro universo, el quark <em>down</em> es ligeramente más masivo que el quark <em>up</em> gracias a sus distintos acoplamientos con el campo de Higgs. Esa diferencia minúscula compensa la repulsión eléctrica interna del protón y hace que el neutrón sea $1.293\text{ MeV}/c^2$ más pesado que el protón <a class="cite" href="#ref-6">[6]</a>. Gracias a eso, un neutrón libre decae en un protón y el hidrógeno es estable. Si las masas de los quarks <em>up</em> y <em>down</em> se anularan por igual, la energía electromagnética haría al protón más pesado que el neutrón: los protones se desintegrarían en neutrones y el universo no tendría hidrógeno estable con el cual formar agua ni encender estrellas de larga vida.
+          </li>
+          <li>
+            <strong>El ritmo de las estrellas:</strong> los bosones $W$ y $Z$ perderían su enorme masa (conservando solo una escala diminuta inducida indirectamente por la QCD). La fuerza débil dejaría de ser &laquo;débil&raquo; y se volvería mucho más intensa a corta distancia. En lugar de que el Sol queme hidrógeno con paciencia durante miles de millones de años &mdash;permitiendo el surgimiento de planetas y vida&mdash;, las reacciones nucleares se acelerarían catastróficamente.
+          </li>
+        </ul>
+
+        <p>
+          Así se resuelve la paradoja inicial: el campo de Higgs no aporta la mayor parte de la masa de la materia, pero <strong>aporta la masa exacta donde la estructura del universo depende de ella</strong>. Sin el ancla del electrón, sin la jerarquía entre los quarks <em>up</em> y <em>down</em>, y sin el freno de los masivos bosones $W$ y $Z$, el cosmos sería una sopa difusa sin química, sin moléculas y sin observadores capaces de preguntarse por su origen.
+        </p>
+
+        <figure class="lab-card reveal" id="lab-atom-collapse">
+          <div class="lab-card__header">
+            <span class="lab-card__tag">Laboratorio 04 &middot; Canvas 2D</span>
+            <h3 class="lab-card__title">Interruptor del Campo de Higgs y colapso atómico</h3>
+            <p class="lab-card__desc">
+              Reduce la intensidad del campo del 100 % al 0 % y observa cómo el radio de Bohr diverge hasta que el electrón escapa a velocidad $c$.
+            </p>
+          </div>
+          <div class="lab-card__stage" data-lab-mount="atom-collapse">
+            <p class="lab-card__placeholder">Espacio reservado para el módulo <code>src/labs/atomCollapseLab.js</code></p>
+          </div>
+        </figure>
+
+        <details class="physics-box">
+          <summary class="physics-box__summary">
+            <span class="physics-box__label">Ver la física detrás</span>
+            <span class="physics-box__topic">Divergencia del radio de Bohr y confinamiento cuántico</span>
+          </summary>
+          <div class="physics-box__body">
+            <p>
+              En mecánica cuántica no relativista, el radio característico del estado fundamental del hidrógeno es:
+            </p>
+            <div class="equation-display">
+              $$a_0 = \frac{4\pi\varepsilon_0 \hbar^2}{m_e e^2} = \frac{\hbar}{\alpha \, m_e c}$$
+            </div>
+            <p>
+              donde $\alpha = \frac{e^2}{4\pi\varepsilon_0 \hbar c} \approx \frac{1}{137}$ es la constante de estructura fina. Cuando $m_e \to 0$, el radio $a_0 \to \infty$. En el régimen estrictamente sin masa (ecuación de Dirac con $m_e = 0$), el principio de incertidumbre exige que confinar un electrón en una región de radio $r$ cuesta una energía cinética del orden de $E_{\text{kin}} \sim \hbar c / r$, mientras que la atracción de Coulomb solo aporta $V(r) = -\alpha \hbar c / r$. Como $\alpha \approx 1/137$ es mucho menor que $1$, la energía total $E(r) \sim (1 - \alpha)\frac{\hbar c}{r}$ siempre es positiva y disminuye haciendo $r \to \infty$: el sistema no posee ningún mínimo de energía ligado.
+            </p>
+            <p>
+              Incluso con $v = 0$, la ruptura quiral de la QCD ($\langle \bar{q}q \rangle \neq 0$) generaría una pequeña ruptura electrodébil residual a escala $\sim 30\text{ MeV}$ que daría a $W^\pm$ y $Z^0$ masas unas 2500 veces menores que las reales, pero el electrón seguiría teniendo masa estrictamente cero porque no siente la fuerza fuerte.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="seccion-5" class="chapter" data-theme-section="lhc">
+      <div class="prose container">
+        <p class="chapter__eyebrow">Sección 05</p>
+        <h2 class="chapter__title">4 de julio de 2012: cómo se caza un destello que dura $10^{-22}$ segundos</h2>
+
+        <p>
+          Comprobar que el campo de Higgs es real planteó uno de los mayores retos tecnológicos de la ciencia. No podemos &laquo;tocar&raquo; el campo de fondo directamente, igual que un pez en las profundidades no percibe la presión del agua hasta que algo genera una ola. La única manera de demostrar su existencia era golpear el vacío con tanta violencia concentrada que produjera su vibración cuántica característica: un <strong>bosón de Higgs</strong>.
+        </p>
+
+        <p>
+          Para lograrlo se construyó el <strong>Gran Colisionador de Hadrones (LHC)</strong> en el CERN, cerca de Ginebra: un anillo subterráneo de 27 kilómetros de circunferencia enfriado a $1.9\text{ K}$ (más frío que el espacio interestelar) donde haces de protones chocan frontalmente a velocidades equivalentes al $99.999999\%$ de la velocidad de la luz. Durante su primera campaña científica (2011 y 2012), el LHC operó a energías de colisión de $7\text{ TeV}$ y $8\text{ TeV}$, vigilado por dos colosales detectores independientes del tamaño de edificios de varios pisos: <strong>ATLAS</strong> y <strong>CMS</strong>.
+        </p>
+
+        <p>
+          El obstáculo principal era la fugacidad extrema de la presa. Un bosón de Higgs producido en una colisión sobrevive apenas unos <strong>$1.6 \times 10^{-22}$ segundos</strong> antes de transformarse en otras partículas más ligeras. En ese lapso, ni siquiera alcanza a cruzar el diámetro de un núcleo atómico; jamás llega a tocar ningún sensor del detector. Los físicos nunca &laquo;ven&raquo; al bosón de Higgs: reconstruyen su huella a partir de sus productos de desintegración.
+        </p>
+
+        <p>
+          Curiosamente, los modos más frecuentes de desintegración del bosón de Higgs no fueron los más útiles para anunciarlo al principio. Alrededor del 58 % de las veces decae en un par de quarks <em>bottom</em> ($H \to b\bar{b}$), pero las colisiones entre protones producen torrentes tan gigantescos de quarks <em>bottom</em> por fuerza fuerte que la señal quedaba enterrada en el ruido. Por eso, ATLAS y CMS apostaron por dos canales mucho más raros pero extraordinariamente limpios:
+        </p>
+
+        <ul class="editorial-list">
+          <li>
+            <strong>El canal de dos fotones ($H \to \gamma\gamma$):</strong> ocurre apenas en un $0.23\%$ de las desintegraciones. Aunque el fotón no tiene masa y no se acopla directamente al bosón de Higgs, la mecánica cuántica permite que el Higgs se transforme brevemente en un bucle virtual de bosones $W$ o quarks <em>top</em>, que a su vez emiten dos fotones de alta energía. Al medir con precisión la energía y el ángulo de esos dos fotones, los físicos calculan la <strong>masa invariante</strong> de la partícula madre que los originó.
+          </li>
+          <li>
+            <strong>El &laquo;canal dorado&raquo; de cuatro leptones ($H \to ZZ^* \to 4\ell$):</strong> el Higgs decae en dos bosones $Z$ (uno de ellos virtual) que a su vez producen cuatro electrones o muones nítidos y fáciles de identificar en los detectores, con un fondo de ruido mínimo.
+          </li>
+        </ul>
+
+        <p>
+          Tras analizar cientos de billones de colisiones protón-protón, comenzó a emerger el mismo abultamiento estrecho y persistente sobre la curva suave del ruido de fondo, exactamente en el mismo lugar en ambos experimentos independientes: <strong>cerca de $125\text{ GeV}/c^2$</strong>.
+        </p>
+
+        <p>
+          El <strong>4 de julio de 2012</strong>, en un auditorio abarrotado en el CERN, las colaboraciones ATLAS y CMS anunciaron oficialmente la observación de un nuevo bosón con una significancia estadística de <strong>5 sigmas ($5\sigma$)</strong> <a class="cite" href="#ref-4">[4]</a><a class="cite" href="#ref-5">[5]</a>. En estadística experimental, superar $5\sigma$ significa que la probabilidad de que el pico sea una mera casualidad del ruido de fondo es inferior a una en 3.5 millones. Al año siguiente, en 2013, François Englert y Peter Higgs recibieron el Premio Nobel de Física (Robert Brout había fallecido en 2011).
+        </p>
+
+        <p>
+          El descubrimiento completó la última casilla vacía del Modelo Estándar y confirmó la existencia de la primera partícula fundamental escalar (espín 0) de la naturaleza. Sin embargo, lejos de cerrar la física de partículas, abrió un nuevo mapa de preguntas abiertas que hoy ocupan al LHC y a los proyectos de futuros colisionadores:
+        </p>
+
+        <ul class="editorial-list">
+          <li>
+            <strong>¿Cuál es la forma exacta del sombrero mexicano?</strong> Medir la masa del bosón nos da la curvatura del valle cerca del mínimo, pero comprobar directamente si el potencial tiene exactamente la forma predicha exige observar colisiones donde se produzcan <strong>dos bosones de Higgs a la vez</strong> (el autoacoplamiento del Higgs), un proceso extraordinariamente raro que se busca activamente en las nuevas fases del LHC.
+          </li>
+          <li>
+            <strong>La jerarquía de masas y los neutrinos:</strong> por qué los acoplamientos de Yukawa abarcan seis órdenes de magnitud entre el electrón y el quark <em>top</em>, y si el campo de Higgs participa también en el origen de la diminuta masa de los neutrinos.
+          </li>
+          <li>
+            <strong>La estabilidad del vacío cósmico:</strong> dados los valores medidos de las masas del bosón de Higgs ($125.2\text{ GeV}/c^2$) y del quark <em>top</em> ($172.6\text{ GeV}/c^2$), el Modelo Estándar sugiere que nuestro vacío actual podría ser <strong>metaestable</strong> &mdash;es decir, un mínimo local extremadamente longevo, mucho más estable que la edad actual del universo, pero no necesariamente el fondo absoluto más bajo posible&mdash; si no existe nueva física a energías muy altas.
+          </li>
+        </ul>
+
+        <figure class="lab-card reveal" id="lab-lhc-collision">
+          <div class="lab-card__header">
+            <span class="lab-card__tag">Laboratorio 05 &middot; Canvas 2D</span>
+            <h3 class="lab-card__title">Reconstrucción de colisiones y pico de $125\text{ GeV}$</h3>
+            <p class="lab-card__desc">
+              Acumula eventos en los canales $H \to \gamma\gamma$ y $H \to 4\ell$ hasta ver emerger la resonancia de $125.2\text{ GeV}/c^2$ con significancia $5\sigma$.
+            </p>
+          </div>
+          <div class="lab-card__stage" data-lab-mount="lhc-collision">
+            <p class="lab-card__placeholder">Espacio reservado para el módulo <code>src/labs/lhcCollisionLab.js</code></p>
+          </div>
+        </figure>
+
+        <details class="physics-box">
+          <summary class="physics-box__summary">
+            <span class="physics-box__label">Ver la física detrás</span>
+            <span class="physics-box__topic">Masa invariante, anchura de decaimiento y criterio $5\sigma$</span>
+          </summary>
+          <div class="physics-box__body">
+            <p>
+              En un detector de colisionador, cada partícula final $i$ se caracteriza por su cuadrimomento relativista $p_i^\mu = (E_i/c, \vec{p}_i)$. Para un par de fotones o cuatro leptones reconstruidos en un evento, la masa invariante $m_{\text{inv}}$ del sistema madre viene dada por:
+            </p>
+            <div class="equation-display">
+              $$m_{\text{inv}}^2 c^4 = \left(\sum_i E_i\right)^2 - \left(\sum_i \vec{p}_i c\right)^2$$
+            </div>
+            <p>
+              Si las partículas provienen del decaimiento de un bosón real, sus valores de $m_{\text{inv}}$ se acumulan formando una resonancia centrada en $m_H = 125.20 \pm 0.11\text{ GeV}/c^2$ <a class="cite" href="#ref-6">[6]</a>. La vida media $\tau_H$ se relaciona con la anchura total de decaimiento $\Gamma_H \approx 4.1\text{ MeV}$ mediante el principio de incertidumbre tiempo-energía: $\tau_H = \hbar / \Gamma_H \approx 1.6 \times 10^{-22}\text{ s}$. El criterio de descubrimiento de $5\sigma$ exige un valor $p$ unilateral inferior a $2.87 \times 10^{-7}$, garantizando que tanto ATLAS como CMS descartaran fluctuaciones aleatorias del fondo del Modelo Estándar antes de declarar el hallazgo <a class="cite" href="#ref-4">[4]</a><a class="cite" href="#ref-5">[5]</a>.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="cierre" class="chapter chapter--closing" data-theme-section="editorial">
+      <div class="prose container">
+        <p class="chapter__eyebrow">Cierre</p>
+        <h2 class="chapter__title">El escenario silencioso detrás de la materia</h2>
+
+        <p>
+          El apodo de &laquo;Partícula de Dios&raquo; convirtió al bosón de Higgs en un símbolo pop, pero ocultó la belleza real de su historia. El campo de Higgs no es el creador solitario de toda nuestra masa: el peso de tu cuerpo sigue siendo, casi por completo, una sinfonía relativista de quarks y gluones vibrando en el corazón de tus átomos. Su verdadero papel es más sutil y más decisivo. Al congelarse en todo el cosmos apenas diez billonésimas de segundo después del Big Bang, les entregó a los electrones la inercia exacta para quedarse junto a los núcleos, inclinó la balanza entre neutrones y protones para salvar al hidrógeno y moderó el fuego de las estrellas mediante la masa de los bosones $W$ y $Z$.
+        </p>
+
+        <blockquote class="closing-quote">
+          Cada átomo estable que toca tus manos, cada molécula de aire que respiras y cada rayo de luz que nace en el Sol existen porque el espacio vacío nunca estuvo realmente vacío.
+        </blockquote>
+      </div>
+    </section>
+
+    <section id="referencias" class="chapter chapter--references" data-theme-section="editorial">
+      <div class="prose container">
+        <p class="chapter__eyebrow">Bibliografía</p>
+        <h2 class="chapter__title">Referencias bibliográficas</h2>
+
+        <ol class="references-list">
+          <li id="ref-1">
+            Englert, F., y Brout, R. (1964). Broken Symmetry and the Mass of Gauge Vector Mesons. <em>Physical Review Letters</em>, 13(9), 321&ndash;323.
+          </li>
+          <li id="ref-2">
+            Higgs, P. W. (1964). Broken Symmetries and the Masses of Gauge Bosons. <em>Physical Review Letters</em>, 13(16), 508&ndash;509.
+          </li>
+          <li id="ref-3">
+            Guralnik, G. S., Hagen, C. R., y Kibble, T. W. B. (1964). Global Conservation Laws and Massless Particles. <em>Physical Review Letters</em>, 13(20), 585&ndash;587.
+          </li>
+          <li id="ref-4">
+            ATLAS Collaboration (2012). Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC. <em>Physics Letters B</em>, 716(1), 1&ndash;29.
+          </li>
+          <li id="ref-5">
+            CMS Collaboration (2012). Observation of a new boson at a mass of 125 GeV with the CMS experiment at the LHC. <em>Physics Letters B</em>, 716(1), 30&ndash;61.
+          </li>
+          <li id="ref-6">
+            Navas, S., et al. (Particle Data Group) (2024). Review of Particle Physics. <em>Physical Review D</em>, 110(3), 030001.
+          </li>
+          <li id="ref-7">
+            Dürr, S., et al. (2008). Ab-Initio Determination of Light Hadron Masses. <em>Science</em>, 322(5905), 1224&ndash;1227.
+          </li>
+          <li id="ref-8">
+            Wilczek, F. (1999). Mass without Mass I: Most of Matter. <em>Physics Today</em>, 52(11), 11&ndash;13.
+          </li>
+          <li id="ref-9">
+            Lederman, L., y Teresi, D. (1993). <em>The God Particle: If the Universe Is the Answer, What Is the Question?</em> Houghton Mifflin.
+          </li>
+          <li id="ref-10">
+            Griffiths, D. (2008). <em>Introduction to Elementary Particles</em> (2.ª ed.). Wiley-VCH.
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" data-theme-section="editorial">
+    <div class="container site-footer__grid">
+      <div>
+        <p class="site-footer__label">Proyecto de divulgación científica interactiva</p>
+        <p class="site-footer__institution">Universidad Nacional de Colombia &mdash; Sede de La Paz</p>
+        <p class="site-footer__course">Asignatura: Partículas y cosmología</p>
+      </div>
+      <div>
+        <p class="site-footer__label">Autores</p>
+        <p class="site-footer__authors">Daniel Enrique Arias Montero</p>
+        <p class="site-footer__authors">Abraham José Gómez Sarmiento</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

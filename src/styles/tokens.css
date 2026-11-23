@@ -1,0 +1,81 @@
+:root {
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --content-width: 720px;
+  --lab-width: 860px;
+  --radius-md: 12px;
+  --radius-sm: 6px;
+  --theme-transition: 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+
+  --bg: #07090f;
+  --surface: #0e1320;
+  --surface-elevated: #141b2d;
+  --text: #edf1f7;
+  --text-muted: #9aa7bd;
+  --border: rgba(148, 163, 184, 0.2);
+  --accent: #4cc9f0;
+  --accent-soft: rgba(76, 201, 240, 0.14);
+  --accent-secondary: #f5b700;
+}
+
+html[data-theme='cosmos'] {
+  --bg: #07090f;
+  --surface: #0e1320;
+  --surface-elevated: #141b2d;
+  --text: #edf1f7;
+  --text-muted: #9aa7bd;
+  --border: rgba(148, 163, 184, 0.2);
+  --accent: #4cc9f0;
+  --accent-soft: rgba(76, 201, 240, 0.14);
+  --accent-secondary: #f5b700;
+}
+
+html[data-theme='editorial'] {
+  --bg: #f7f5f0;
+  --surface: #efeae0;
+  --surface-elevated: #ffffff;
+  --text: #181a1f;
+  --text-muted: #525866;
+  --border: rgba(24, 26, 31, 0.14);
+  --accent: #0f52ba;
+  --accent-soft: rgba(15, 82, 186, 0.09);
+  --accent-secondary: #b45309;
+}
+
+html[data-theme='quantum'] {
+  --bg: #0b101b;
+  --surface: #111829;
+  --surface-elevated: #162038;
+  --text: #e8eef7;
+  --text-muted: #98a8c2;
+  --border: rgba(148, 163, 184, 0.22);
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.14);
+  --accent-secondary: #a78bfa;
+}
+
+html[data-theme='symmetry'] {
+  --bg: #141118;
+  --surface: #1d1824;
+  --surface-elevated: #261f30;
+  --text: #f2edf7;
+  --text-muted: #b0a4be;
+  --border: rgba(216, 180, 254, 0.2);
+  --accent: #f59e0b;
+  --accent-soft: rgba(245, 158, 11, 0.15);
+  --accent-secondary: #c084fc;
+}
+
+html[data-theme='lhc'] {
+  --bg: #080c12;
+  --surface: #0f1621;
+  --surface-elevated: #152030;
+  --text: #e6edf5;
+  --text-muted: #8fa3bc;
+  --border: rgba(56, 189, 248, 0.2);
+  --accent: #22d3ee;
+  --accent-soft: rgba(34, 211, 238, 0.14);
+  --accent-secondary: #fb7185;
+}
