@@ -109,16 +109,26 @@ export function initYukawaCoupling() {
   let pulses = [];
   let time = 0;
 
+  function getBounds() {
+    const hasDesktopHud = window.innerWidth > 1260;
+    const left = hasDesktopHud
+      ? Math.max(Math.round(width * 0.08), 115)
+      : Math.max(Math.round(width * 0.06), 24);
+    const right = hasDesktopHud ? width - 235 : width - 20;
+    return { left, right };
+  }
+
   function selectParticle(key) {
     currentKey = key;
     const p = PARTICLES[key];
+    const { left } = getBounds();
     buttons.forEach((btn) => btn.setAttribute('aria-pressed', String(btn.dataset.particle === key)));
     yukawaEl.textContent = p.yukawa;
     massEl.textContent = p.mass;
     noteEl.textContent = p.note;
     chirality = 'L';
     framesSinceFlip = 0;
-    px = 36;
+    px = left;
     py = height / 2;
     trail = [];
     pulses = [];
@@ -142,11 +152,12 @@ export function initYukawaCoupling() {
 
   function step() {
     const p = PARTICLES[currentKey];
+    const { left, right } = getBounds();
     time += 0.025;
     px += p.speed;
 
-    if (px > width - 20) {
-      px = 20;
+    if (px > right) {
+      px = left;
       trail = [];
     }
 
@@ -177,15 +188,16 @@ export function initYukawaCoupling() {
     pulses = pulses.filter((pulse) => pulse.alpha > 0.04);
   }
 
-  function drawBackgroundField() {
+  function drawBackgroundField(left, right) {
     const cols = 15;
     const rows = 7;
-    const stepX = width / (cols + 1);
+    const spanX = Math.max(right - left, 100);
+    const stepX = spanX / (cols + 1);
     const stepY = height / (rows + 1);
 
     for (let r = 1; r <= rows; r++) {
       for (let c = 1; c <= cols; c++) {
-        const x = c * stepX;
+        const x = left + c * stepX;
         const y = r * stepY;
         const dist = Math.hypot(x - px, y - py);
         const couplingBoost = currentKey === 'photon' ? 0 : Math.max(0, 1 - dist / 95);
@@ -202,14 +214,20 @@ export function initYukawaCoupling() {
 
   function draw() {
     const p = PARTICLES[currentKey];
+    const { left, right } = getBounds();
     ctx.clearRect(0, 0, width, height);
 
-    drawBackgroundField();
+    drawBackgroundField(left, right);
+
+    const fadeIn = Math.min((px - left) / 35, 1);
+    const fadeOut = Math.min((right - px) / 55, 1);
+    const edgeAlpha = Math.max(0, Math.min(fadeIn, fadeOut));
 
     pulses.forEach((pulse) => {
+      if (pulse.x > right) return;
       ctx.beginPath();
       ctx.arc(pulse.x, pulse.y, pulse.radius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(56, 189, 248, ${pulse.alpha})`;
+      ctx.strokeStyle = `rgba(56, 189, 248, ${pulse.alpha * edgeAlpha})`;
       ctx.lineWidth = 1.6;
       ctx.stroke();
     });
@@ -218,7 +236,7 @@ export function initYukawaCoupling() {
       for (let i = 1; i < trail.length; i++) {
         const a = trail[i - 1];
         const b = trail[i];
-        const fade = i / trail.length;
+        const fade = (i / trail.length) * edgeAlpha;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
@@ -232,6 +250,9 @@ export function initYukawaCoupling() {
         ctx.stroke();
       }
     }
+
+    ctx.save();
+    ctx.globalAlpha = edgeAlpha;
 
     ctx.beginPath();
     ctx.arc(px, py, 14, 0, Math.PI * 2);
@@ -250,10 +271,12 @@ export function initYukawaCoupling() {
       ctx.fillText(chirality, px, py - 22);
     }
 
-    ctx.fillStyle = 'rgba(232, 238, 247, 0.55)';
+    ctx.restore();
+
+    ctx.fillStyle = 'rgba(232, 238, 247, 0.72)';
     ctx.font = '500 11px "IBM Plex Mono", monospace';
     ctx.textAlign = 'left';
-    ctx.fillText('CAMPO DE HIGGS EN EL VACÍO: v ≈ 246.2 GeV (SIN FRICCIÓN)', 14, 22);
+    ctx.fillText('CAMPO DE HIGGS EN EL VACÍO: v ≈ 246.2 GeV (SIN FRICCIÓN)', Math.round(left), 22);
   }
 
   function loop() {
