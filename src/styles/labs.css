@@ -65,6 +65,66 @@
   text-align: center;
 }
 
+/* Lienzos y metricas de laboratorios */
+
+.lab-canvas {
+  display: block;
+  width: 100%;
+  height: 310px;
+}
+
+.lab-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 0.85rem 1.25rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  font-family: var(--font-sans);
+}
+
+.lab-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.lab-metric__label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.lab-metric__value {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.lab-bar {
+  grid-column: 1 / -1;
+  display: flex;
+  height: 8px;
+  width: 100%;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.lab-bar__higgs {
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+
+.lab-bar__qcd {
+  background: var(--accent-secondary);
+  transition: width 0.25s ease;
+}
+
 /* Controles reutilizables para los laboratorios */
 
 .lab-controls {
@@ -78,6 +138,12 @@
   border-top: 1px solid var(--border);
   background: var(--surface);
   font-family: var(--font-sans);
+}
+
+.lab-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .lab-btn {
@@ -99,6 +165,12 @@
   border-color: var(--accent);
   background: var(--accent-soft);
   color: var(--accent);
+}
+
+.lab-status {
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  color: var(--text-muted);
 }
 
 .lab-slider {

@@ -11,6 +11,8 @@ import renderMathInElement from 'katex/contrib/auto-render';
 
 import { initHeroField } from './animations/heroField.js';
 import { initScrollThemes } from './animations/scrollThemes.js';
+import { initProtonMassLab } from './labs/protonMassLab.js';
+import { initYukawaCoupling } from './labs/yukawaCoupling.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,4 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroField('hero-field-canvas');
   initScrollThemes();
   initPhysicsBoxes();
+  initProtonMassLab();
+  initYukawaCoupling();
 });
