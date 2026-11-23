@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
     rel="stylesheet"
   />
 </head>
@@ -25,27 +25,37 @@
     <div class="hero__vignette" aria-hidden="true"></div>
 
     <div class="hero__content container">
-      <div class="hero__meta">
-        <span class="hero__institution">Universidad Nacional de Colombia &mdash; Sede de La Paz</span>
+      <div class="hero__top">
+        <span class="hero__institution">Universidad Nacional de Colombia &middot; Sede de La Paz</span>
         <span class="hero__course">Partículas y cosmología</span>
       </div>
 
-      <h1 class="hero__title">
-        Más allá de la &laquo;Partícula de Dios&raquo;: Qué es realmente el Campo de Higgs y por qué sin él no existirían los átomos
-      </h1>
-
-      <p class="hero__subtitle">
-        Un recorrido interactivo por la ruptura espontánea de simetría, la verdadera fuente de nuestra masa y el mecanismo cuántico que permitió que la materia pudiera ensamblarse.
-      </p>
-
-      <div class="hero__authors">
-        <span class="hero__authors-label">Autores</span>
-        <p class="hero__authors-names">Daniel Enrique Arias Montero &middot; Abraham José Gómez Sarmiento</p>
+      <div class="hero__main">
+        <p class="hero__kicker">Ensayo interactivo &middot; Modelo Estándar</p>
+        <h1 class="hero__title">
+          Más allá de la <em>&laquo;Partícula de Dios&raquo;</em>: qué es realmente el Campo de Higgs y por qué sin él no existirían los átomos
+        </h1>
+        <p class="hero__subtitle">
+          Ruptura espontánea de simetría, origen real de la masa de la materia ordinaria y el mecanismo cuántico que permite la existencia de la química.
+        </p>
       </div>
 
-      <div class="hero__hint">
-        <span>Mueve el cursor o toca la malla cuántica para excitar el campo</span>
-        <a href="#introduccion" class="hero__scroll-link">Iniciar lectura</a>
+      <div class="hero__bottom">
+        <div class="hero__authors">
+          <span class="hero__label">Autores</span>
+          <p class="hero__authors-names">Daniel Enrique Arias Montero &mdash; Abraham José Gómez Sarmiento</p>
+        </div>
+
+        <div class="hero__actions">
+          <span class="hero__field-indicator">
+            <span class="hero__dot" aria-hidden="true"></span>
+            Campo escalar activo &middot; Toca o desliza
+          </span>
+          <a href="#introduccion" class="hero__cta">
+            <span>Iniciar lectura</span>
+            <span class="hero__cta-arrow" aria-hidden="true">&darr;</span>
+          </a>
+        </div>
       </div>
     </div>
   </header>
@@ -113,15 +123,13 @@
 
         <figure class="lab-card reveal" id="lab-proton">
           <div class="lab-card__header">
-            <span class="lab-card__tag">Laboratorio 01 &middot; Canvas 2D</span>
+            <span class="lab-card__tag">Fig. 01 &mdash; Cromodinámica cuántica</span>
             <h3 class="lab-card__title">Desglose de la masa del protón</h3>
             <p class="lab-card__desc">
               Compara la contribución directa de las masas de los quarks de valencia (~1 %) frente a la energía cinética y de enlace de los gluones (~99 %).
             </p>
           </div>
-          <div class="lab-card__stage" data-lab-mount="proton">
-            <p class="lab-card__placeholder">Espacio reservado para el módulo <code>src/labs/protonMassLab.js</code></p>
-          </div>
+          <div class="lab-card__stage" data-lab-mount="proton"></div>
         </figure>
 
         <details class="physics-box">
@@ -198,15 +206,13 @@
 
         <figure class="lab-card reveal" id="lab-yukawa">
           <div class="lab-card__header">
-            <span class="lab-card__tag">Laboratorio 02 &middot; Canvas 2D</span>
-            <h3 class="lab-card__title">Acoplamiento de Yukawa e intercambio de quiralidad</h3>
+            <span class="lab-card__tag">Fig. 02 &mdash; Acoplamiento de Yukawa</span>
+            <h3 class="lab-card__title">Interacción con el vacío e intercambio de quiralidad</h3>
             <p class="lab-card__desc">
               Selecciona distintas partículas elementales para observar cómo interactúan con el campo de fondo uniforme sin sufrir fricción clásica.
             </p>
           </div>
-          <div class="lab-card__stage" data-lab-mount="yukawa">
-            <p class="lab-card__placeholder">Espacio reservado para el módulo <code>src/labs/yukawaCoupling.js</code></p>
-          </div>
+          <div class="lab-card__stage" data-lab-mount="yukawa"></div>
         </figure>
 
         <details class="physics-box">
@@ -279,15 +285,13 @@
 
         <figure class="lab-card reveal" id="lab-mexican-hat">
           <div class="lab-card__header">
-            <span class="lab-card__tag">Laboratorio 03 &middot; Three.js WebGL</span>
-            <h3 class="lab-card__title">Potencial del Sombrero Mexicano en 3D</h3>
+            <span class="lab-card__tag">Fig. 03 &mdash; Potencial escalar V(&phi;)</span>
+            <h3 class="lab-card__title">Superficie del Sombrero Mexicano en 3D</h3>
             <p class="lab-card__desc">
               Rota la superficie del potencial escalar, reduce la temperatura cósmica y compara los modos angulares frente a la excitación radial del bosón de Higgs.
             </p>
           </div>
-          <div class="lab-card__stage lab-card__stage--tall" data-lab-mount="mexican-hat">
-            <p class="lab-card__placeholder">Espacio reservado para el módulo <code>src/labs/mexicanHat3D.js</code></p>
-          </div>
+          <div class="lab-card__stage lab-card__stage--tall" data-lab-mount="mexican-hat"></div>
         </figure>
 
         <details class="physics-box">
@@ -370,15 +374,13 @@
 
         <figure class="lab-card reveal" id="lab-atom-collapse">
           <div class="lab-card__header">
-            <span class="lab-card__tag">Laboratorio 04 &middot; Canvas 2D</span>
-            <h3 class="lab-card__title">Interruptor del Campo de Higgs y colapso atómico</h3>
+            <span class="lab-card__tag">Fig. 04 &mdash; Confinamiento atómico</span>
+            <h3 class="lab-card__title">Interruptor del Campo de Higgs y radio de Bohr</h3>
             <p class="lab-card__desc">
               Reduce la intensidad del campo del 100 % al 0 % y observa cómo el radio de Bohr diverge hasta que el electrón escapa a velocidad $c$.
             </p>
           </div>
-          <div class="lab-card__stage" data-lab-mount="atom-collapse">
-            <p class="lab-card__placeholder">Espacio reservado para el módulo <code>src/labs/atomCollapseLab.js</code></p>
-          </div>
+          <div class="lab-card__stage" data-lab-mount="atom-collapse"></div>
         </figure>
 
         <details class="physics-box">
@@ -460,15 +462,13 @@
 
         <figure class="lab-card reveal" id="lab-lhc-collision">
           <div class="lab-card__header">
-            <span class="lab-card__tag">Laboratorio 05 &middot; Canvas 2D</span>
-            <h3 class="lab-card__title">Reconstrucción de colisiones y pico de $125\text{ GeV}$</h3>
+            <span class="lab-card__tag">Fig. 05 &mdash; Reconstrucción experimental LHC</span>
+            <h3 class="lab-card__title">Colisiones protón-protón y resonancia de $125\text{ GeV}$</h3>
             <p class="lab-card__desc">
               Acumula eventos en los canales $H \to \gamma\gamma$ y $H \to 4\ell$ hasta ver emerger la resonancia de $125.2\text{ GeV}/c^2$ con significancia $5\sigma$.
             </p>
           </div>
-          <div class="lab-card__stage" data-lab-mount="lhc-collision">
-            <p class="lab-card__placeholder">Espacio reservado para el módulo <code>src/labs/lhcCollisionLab.js</code></p>
-          </div>
+          <div class="lab-card__stage" data-lab-mount="lhc-collision"></div>
         </figure>
 
         <details class="physics-box">
@@ -534,7 +534,7 @@
             Dürr, S., et al. (2008). Ab-Initio Determination of Light Hadron Masses. <em>Science</em>, 322(5905), 1224&ndash;1227.
           </li>
           <li id="ref-8">
-            Wilczek, F. (1999). Mass without Mass I: Most of Matter. <em>Physics Today</em>, 52(11), 11&ndash;13.
+            Wilczek, F. (1999). Mass without Mass I: Most of Matter. <em>Physics Today</em>, 52(11), 11–13.
           </li>
           <li id="ref-9">
             Lederman, L., y Teresi, D. (1993). <em>The God Particle: If the Universe Is the Answer, What Is the Question?</em> Houghton Mifflin.

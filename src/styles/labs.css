@@ -1,71 +1,111 @@
-/* Contenedores de laboratorios interactivos */
+/* Laminas de laboratorio: estetica de instrumento cientifico */
 
 .lab-card {
-  margin: 2.75rem calc(50% - min(50vw - 1.25rem, var(--lab-width) / 2));
-  border-radius: var(--radius-md);
-  background: var(--surface);
+  position: relative;
+  margin: 3.25rem calc(50% - min(50vw - 1.25rem, var(--lab-width) / 2));
+  border-radius: 2px;
+  background: transparent;
   border: 1px solid var(--border);
-  overflow: hidden;
-  transition: background-color var(--theme-transition), border-color var(--theme-transition);
+  overflow: visible;
+  transition: border-color var(--theme-transition);
+}
+
+/* Reticulas de calibracion en las esquinas */
+
+.lab-card::before,
+.lab-card::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: 3;
+  transition: border-color var(--theme-transition);
+}
+
+.lab-card::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+}
+
+.lab-card::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
 }
 
 .lab-card__header {
-  padding: 1.5rem 1.75rem 1.25rem;
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.25rem 1.5rem 1.15rem;
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
+  transition: background-color var(--theme-transition), border-color var(--theme-transition);
 }
 
 .lab-card__tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 0.45rem;
+}
+
+.lab-card__tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.85;
 }
 
 .lab-card__title {
-  margin: 0 0 0.45rem;
+  margin: 0;
   font-family: var(--font-sans);
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.12rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
   line-height: 1.3;
   color: var(--text);
 }
 
 .lab-card__desc {
-  margin: 0;
+  margin: 0.1rem 0 0;
+  max-width: 68ch;
   font-family: var(--font-sans);
-  font-size: 0.92rem;
+  font-size: 0.89rem;
   line-height: 1.55;
   color: var(--text-muted);
 }
 
+/* Visor con cuadricula tecnica sutil */
+
 .lab-card__stage {
   position: relative;
-  min-height: 320px;
+  min-height: 310px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  padding: 1.5rem;
-  background: var(--surface-elevated);
+  padding: 0;
+  background-color: var(--surface-elevated);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 28px 28px;
   transition: background-color var(--theme-transition);
 }
 
 .lab-card__stage--tall {
-  min-height: 400px;
+  min-height: 390px;
 }
-
-.lab-card__placeholder {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  text-align: center;
-}
-
-/* Lienzos y metricas de laboratorios */
 
 .lab-canvas {
   display: block;
@@ -88,126 +128,176 @@
   cursor: grabbing;
 }
 
+/* Barra de telemetria tabular */
+
 .lab-metrics {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-  gap: 0.85rem 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
   width: 100%;
-  padding: 1rem 1.5rem;
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: var(--bg);
   font-family: var(--font-sans);
+  transition: background-color var(--theme-transition), border-color var(--theme-transition);
 }
 
 .lab-metric {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.25rem;
+  padding: 0.85rem 1.25rem;
+  border-right: 1px solid var(--border);
+  transition: border-color var(--theme-transition);
+}
+
+.lab-metric:last-of-type {
+  border-right: none;
 }
 
 .lab-metric__label {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
 .lab-metric__value {
   font-family: var(--font-mono);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 500;
+  font-variant-numeric: tabular-nums;
   color: var(--text);
 }
 
 .lab-bar {
   grid-column: 1 / -1;
   display: flex;
-  height: 8px;
+  height: 4px;
   width: 100%;
-  border-radius: 999px;
   overflow: hidden;
   background: var(--border);
 }
 
 .lab-bar__higgs {
   background: var(--accent);
-  transition: width 0.25s ease;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .lab-bar__qcd {
   background: var(--accent-secondary);
-  transition: width 0.25s ease;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Controles reutilizables para los laboratorios */
+/* Controles segmentados e interruptores de precision */
 
 .lab-controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.85rem 1.25rem;
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: 0.9rem 1.25rem;
   border-top: 1px solid var(--border);
   background: var(--surface);
   font-family: var(--font-sans);
+  transition: background-color var(--theme-transition), border-color var(--theme-transition);
 }
 
 .lab-btn-group {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
 }
 
 .lab-btn {
   appearance: none;
-  border: 1px solid var(--border);
-  background: var(--surface-elevated);
-  color: var(--text);
-  font-family: var(--font-sans);
-  font-size: 0.86rem;
-  font-weight: 500;
-  padding: 0.5rem 0.95rem;
-  border-radius: var(--radius-sm);
+  border: none;
+  border-right: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  padding: 0.52rem 0.9rem;
   cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.lab-btn:hover,
-.lab-btn[aria-pressed='true'] {
-  border-color: var(--accent);
+.lab-btn:last-child {
+  border-right: none;
+}
+
+.lab-btn:hover {
   background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--text);
+}
+
+.lab-btn[aria-pressed='true'] {
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 500;
 }
 
 .lab-status {
-  font-family: var(--font-sans);
-  font-size: 0.84rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
   color: var(--text-muted);
 }
 
 .lab-slider-group {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
   flex: 1 1 220px;
 }
 
 .lab-slider-label {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
   white-space: nowrap;
 }
 
 .lab-slider {
+  -webkit-appearance: none;
+  appearance: none;
   flex: 1;
   min-width: 120px;
-  accent-color: var(--accent);
+  height: 2px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+
+.lab-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 18px;
+  border-radius: 1px;
+  background: var(--accent);
+  border: 1px solid var(--bg);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.lab-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+
+.lab-slider::-moz-range-thumb {
+  width: 12px;
+  height: 18px;
+  border-radius: 1px;
+  background: var(--accent);
+  border: 1px solid var(--bg);
   cursor: pointer;
 }
 
@@ -215,8 +305,9 @@
 
 .physics-box {
   margin: 2.25rem 0;
-  border-radius: var(--radius-md);
+  border-radius: 2px;
   border: 1px solid var(--border);
+  border-left: 2px solid var(--accent);
   background: var(--surface);
   overflow: hidden;
   transition: background-color var(--theme-transition), border-color var(--theme-transition);
@@ -227,8 +318,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.55rem 1rem;
-  padding: 1.05rem 1.35rem;
+  gap: 0.5rem 1rem;
+  padding: 0.95rem 1.25rem;
   cursor: pointer;
   user-select: none;
   font-family: var(--font-sans);
@@ -242,9 +333,8 @@
   content: '+';
   margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--accent);
-  transition: transform 0.25s ease;
 }
 
 .physics-box[open] .physics-box__summary::after {
@@ -253,32 +343,29 @@
 
 .physics-box__label {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.22rem 0.55rem;
-  border-radius: 999px;
-  background: var(--accent-soft);
   color: var(--accent);
 }
 
 .physics-box__topic {
-  font-size: 0.95rem;
+  font-size: 0.94rem;
   font-weight: 500;
   color: var(--text);
 }
 
 .physics-box__body {
-  padding: 0 1.35rem 1.35rem;
+  padding: 0 1.25rem 1.25rem;
   border-top: 1px solid var(--border);
   font-family: var(--font-sans);
-  font-size: 0.94rem;
-  line-height: 1.7;
+  font-size: 0.93rem;
+  line-height: 1.72;
   color: var(--text-muted);
 }
 
 .physics-box__body p:first-child {
-  margin-top: 1.15rem;
+  margin-top: 1.1rem;
 }
 
 .physics-box__body p:last-child {
@@ -291,10 +378,34 @@
   }
 
   .lab-card__header {
-    padding: 1.2rem 1.15rem 1rem;
+    padding: 1.1rem 1rem 1rem;
+  }
+
+  .lab-metric {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+  }
+
+  .lab-metric:last-of-type {
+    border-bottom: none;
+  }
+
+  .lab-controls {
+    padding: 0.85rem 1rem;
+  }
+
+  .lab-btn-group {
+    width: 100%;
+  }
+
+  .lab-btn {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 0.55rem 0.65rem;
   }
 
   .lab-canvas--tall {
-    height: 440px;
+    height: 430px;
   }
 }
