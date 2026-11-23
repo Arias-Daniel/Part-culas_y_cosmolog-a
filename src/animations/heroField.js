@@ -2,6 +2,7 @@ export function initHeroField(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
+  const host = canvas.parentElement;
   const ctx = canvas.getContext('2d');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -23,8 +24,15 @@ export function initHeroField(canvasId) {
     return y * cols + x;
   }
 
-  function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
+  function resize(force = false) {
+    const rect = host.getBoundingClientRect();
+    const widthChanged = Math.abs(rect.width - width) > 2;
+    const heightChangedSignificantly = Math.abs(rect.height - height) > 120;
+
+    if (!force && !widthChanged && !heightChangedSignificantly) {
+      return;
+    }
+
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     width = rect.width;
@@ -157,17 +165,39 @@ export function initHeroField(canvasId) {
     }
   }
 
-  resize();
+  resize(true);
   draw();
 
   if (!reducedMotion) {
-    canvas.addEventListener('pointermove', (event) => {
-      excite(event.clientX, event.clientY, 8);
+    host.addEventListener('pointermove', (event) => {
+      if (event.pointerType === 'touch') return;
+      excite(event.clientX, event.clientY, 9);
     });
 
-    canvas.addEventListener('pointerdown', (event) => {
-      excite(event.clientX, event.clientY, 24);
+    host.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'touch') return;
+      excite(event.clientX, event.clientY, 26);
     });
+
+    host.addEventListener(
+      'touchstart',
+      (event) => {
+        for (const touch of event.changedTouches) {
+          excite(touch.clientX, touch.clientY, 28);
+        }
+      },
+      { passive: true }
+    );
+
+    host.addEventListener(
+      'touchmove',
+      (event) => {
+        for (const touch of event.touches) {
+          excite(touch.clientX, touch.clientY, 12);
+        }
+      },
+      { passive: true }
+    );
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -177,12 +207,12 @@ export function initHeroField(canvasId) {
       },
       { threshold: 0.05 }
     );
-    observer.observe(canvas);
+    observer.observe(host);
     start();
   }
 
   window.addEventListener('resize', () => {
-    resize();
+    resize(false);
     draw();
   });
 }
