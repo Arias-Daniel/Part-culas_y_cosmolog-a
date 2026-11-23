@@ -10,6 +10,33 @@
   transition: border-color var(--theme-transition);
 }
 
+.lab-card--scrolly {
+  margin: 0;
+}
+
+/* Modo exposicion a pantalla completa */
+
+.lab-card--fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.lab-card--fullscreen .lab-card__stage {
+  flex: 1;
+}
+
+.lab-card--fullscreen .lab-canvas {
+  height: min(62vh, 540px);
+}
+
 /* Reticulas de calibracion en las esquinas */
 
 .lab-card::before,
@@ -38,12 +65,37 @@
 }
 
 .lab-card__header {
+  position: relative;
   display: grid;
   gap: 0.35rem;
-  padding: 1.25rem 1.5rem 1.15rem;
+  padding: 1.25rem 6.5rem 1.15rem 1.5rem;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
   transition: background-color var(--theme-transition), border-color var(--theme-transition);
+}
+
+.lab-expand-btn {
+  position: absolute;
+  top: 1.15rem;
+  right: 1.25rem;
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.lab-expand-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .lab-card__tag {
@@ -132,7 +184,7 @@
 
 .lab-metrics {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
   width: 100%;
   border-top: 1px solid var(--border);
   background: var(--bg);
@@ -163,7 +215,7 @@
 
 .lab-metric__value {
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   color: var(--text);
@@ -186,6 +238,25 @@
 .lab-bar__qcd {
   background: var(--accent-secondary);
   transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Panel inspector de evento LHC */
+
+.lhc-inspector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem 1rem;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid var(--border);
+  background: var(--accent-soft);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text);
+}
+
+.lhc-inspector[hidden] {
+  display: none;
 }
 
 /* Controles segmentados e interruptores de precision */
@@ -220,10 +291,10 @@
   background: transparent;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.02em;
-  padding: 0.52rem 0.9rem;
+  padding: 0.5rem 0.85rem;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -301,6 +372,67 @@
   cursor: pointer;
 }
 
+/* Scrollytelling anclado (Seccion 04) */
+
+.scrolly {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.18fr);
+  gap: 2.5rem;
+  align-items: start;
+  margin-block: 3rem;
+}
+
+.scrolly__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 35vh;
+  padding-block: 6vh 14vh;
+}
+
+.scrolly-step {
+  padding: 1.25rem 1.35rem;
+  border-left: 2px solid var(--border);
+  background: var(--surface);
+  opacity: 0.48;
+  transition: opacity 0.35s ease, border-color 0.35s ease, background-color var(--theme-transition);
+}
+
+.scrolly-step.is-active {
+  opacity: 1;
+  border-left-color: var(--accent);
+}
+
+.scrolly-step__code {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.45rem;
+}
+
+.scrolly-step h4 {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.scrolly-step p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.91rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.scrolly__stage {
+  position: sticky;
+  top: 4.5rem;
+}
+
 /* Cajas desplegables: Ver la fisica detras */
 
 .physics-box {
@@ -372,13 +504,43 @@
   margin-bottom: 0;
 }
 
+@media (max-width: 920px) {
+  .scrolly {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .scrolly__steps {
+    order: 2;
+    gap: 1.25rem;
+    padding-block: 0;
+  }
+
+  .scrolly-step {
+    opacity: 1;
+  }
+
+  .scrolly__stage {
+    order: 1;
+    position: relative;
+    top: 0;
+  }
+}
+
 @media (max-width: 760px) {
   .lab-card {
     margin-inline: 0;
   }
 
   .lab-card__header {
-    padding: 1.1rem 1rem 1rem;
+    padding: 1.1rem 5.4rem 1rem 1rem;
+  }
+
+  .lab-expand-btn {
+    top: 1rem;
+    right: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.64rem;
   }
 
   .lab-metric {
@@ -402,7 +564,7 @@
   .lab-btn {
     flex: 1 1 auto;
     text-align: center;
-    padding: 0.55rem 0.65rem;
+    padding: 0.55rem 0.6rem;
   }
 
   .lab-canvas--tall {

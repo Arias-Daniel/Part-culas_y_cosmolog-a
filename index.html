@@ -20,7 +20,70 @@
     <div class="reading-progress__bar" id="reading-progress-bar"></div>
   </div>
 
-  <header class="hero" data-theme-section="cosmos">
+  <button
+    type="button"
+    id="audio-toggle-btn"
+    class="audio-toggle"
+    aria-pressed="false"
+    aria-label="Activar o desactivar sonificación cuántica"
+  >
+    <span class="audio-toggle__bars" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </span>
+    <span class="audio-toggle__label">Sonido</span>
+    <span class="audio-toggle__state" data-audio-state>OFF</span>
+  </button>
+
+  <aside id="cosmic-hud" class="cosmic-hud" aria-label="Navegación y escala física">
+    <div class="cosmic-hud__telemetry">
+      <span class="cosmic-hud__tag">Escala activa</span>
+      <span class="cosmic-hud__scale" data-hud-scale>v = 246.2 GeV</span>
+      <span class="cosmic-hud__regime" data-hud-regime>Vacío escalar</span>
+    </div>
+    <nav class="cosmic-hud__nav">
+      <a href="#portada" class="cosmic-hud__item is-active" data-target="portada">
+        <span class="cosmic-hud__num">00</span>
+        <span class="cosmic-hud__name">Portada</span>
+      </a>
+      <a href="#introduccion" class="cosmic-hud__item" data-target="introduccion">
+        <span class="cosmic-hud__num">IN</span>
+        <span class="cosmic-hud__name">Introducción</span>
+      </a>
+      <a href="#seccion-1" class="cosmic-hud__item" data-target="seccion-1">
+        <span class="cosmic-hud__num">01</span>
+        <span class="cosmic-hud__name">Masa QCD</span>
+      </a>
+      <a href="#seccion-2" class="cosmic-hud__item" data-target="seccion-2">
+        <span class="cosmic-hud__num">02</span>
+        <span class="cosmic-hud__name">Campos</span>
+      </a>
+      <a href="#seccion-3" class="cosmic-hud__item" data-target="seccion-3">
+        <span class="cosmic-hud__num">03</span>
+        <span class="cosmic-hud__name">Simetría</span>
+      </a>
+      <a href="#seccion-4" class="cosmic-hud__item" data-target="seccion-4">
+        <span class="cosmic-hud__num">04</span>
+        <span class="cosmic-hud__name">Átomos</span>
+      </a>
+      <a href="#seccion-5" class="cosmic-hud__item" data-target="seccion-5">
+        <span class="cosmic-hud__num">05</span>
+        <span class="cosmic-hud__name">LHC 2012</span>
+      </a>
+      <a href="#referencias" class="cosmic-hud__item" data-target="referencias">
+        <span class="cosmic-hud__num">RF</span>
+        <span class="cosmic-hud__name">Fuentes</span>
+      </a>
+    </nav>
+  </aside>
+
+  <header
+    id="portada"
+    class="hero"
+    data-theme-section="cosmos"
+    data-hud-id="portada"
+    data-hud-scale="v = 246.2 GeV"
+    data-hud-regime="Vacío escalar"
+  >
     <canvas id="hero-field-canvas" class="hero__canvas" aria-hidden="true"></canvas>
     <div class="hero__vignette" aria-hidden="true"></div>
 
@@ -38,30 +101,39 @@
         <p class="hero__subtitle">
           Ruptura espontánea de simetría, origen real de la masa de la materia ordinaria y el mecanismo cuántico que permite la existencia de la química.
         </p>
+
+        <div class="hero__byline">
+          <span class="hero__byline-kicker">Escrito por</span>
+          <ul class="hero__byline-list">
+            <li>Daniel Enrique Arias Montero</li>
+            <li>Abraham José Gómez Sarmiento</li>
+          </ul>
+        </div>
       </div>
 
       <div class="hero__bottom">
-        <div class="hero__authors">
-          <span class="hero__label">Autores</span>
-          <p class="hero__authors-names">Daniel Enrique Arias Montero &mdash; Abraham José Gómez Sarmiento</p>
-        </div>
+        <span class="hero__field-indicator">
+          <span class="hero__dot" aria-hidden="true"></span>
+          Campo escalar activo
+        </span>
 
-        <div class="hero__actions">
-          <span class="hero__field-indicator">
-            <span class="hero__dot" aria-hidden="true"></span>
-            Campo escalar activo &middot; Toca o desliza
-          </span>
-          <a href="#introduccion" class="hero__cta">
-            <span>Iniciar lectura</span>
-            <span class="hero__cta-arrow" aria-hidden="true">&darr;</span>
-          </a>
-        </div>
+        <a href="#introduccion" class="hero__cta">
+          <span>Iniciar lectura</span>
+          <span class="hero__cta-arrow" aria-hidden="true">&darr;</span>
+        </a>
       </div>
     </div>
   </header>
 
   <main>
-    <section id="introduccion" class="chapter" data-theme-section="editorial">
+    <section
+      id="introduccion"
+      class="chapter"
+      data-theme-section="editorial"
+      data-hud-id="introduccion"
+      data-hud-scale="mH = 125.2 GeV/c²"
+      data-hud-regime="Contexto físico"
+    >
       <div class="prose container">
         <p class="chapter__eyebrow">Introducción</p>
         <h2 class="chapter__title">El sobrenombre que confundió a toda una generación</h2>
@@ -84,7 +156,14 @@
       </div>
     </section>
 
-    <section id="seccion-1" class="chapter" data-theme-section="editorial">
+    <section
+      id="seccion-1"
+      class="chapter"
+      data-theme-section="editorial"
+      data-hud-id="seccion-1"
+      data-hud-scale="r ≈ 0.84 × 10⁻¹⁵ m"
+      data-hud-regime="Escala hadrónica · QCD"
+    >
       <div class="prose container">
         <p class="chapter__eyebrow">Sección 01</p>
         <h2 class="chapter__title">El mito del 100 %: de dónde sale realmente tu masa</h2>
@@ -110,7 +189,7 @@
         </p>
 
         <p>
-          La respuesta no viene del campo de Higgs, sino de la <strong>interacción nuclear fuerte</strong>, descrita por la cromodinámica cuántica (QCD, por sus siglas en inglés), y de la ecuación más célebre del siglo XX, leída en la dirección que casi nunca se menciona: $m = E/c^2$. La fórmula de Einstein no solo dice que la masa puede convertirse en energía; dice que <strong>la energía confinada en un sistema en reposo se comporta exactamente como masa</strong>.
+          La respuesta no viene del campo de Higgs, sino de la <strong>interacción nuclear fuerte</strong>, descrita por la <span class="glossary-term" data-term="qcd">cromodinámica cuántica (QCD)</span>, y de la ecuación más célebre del siglo XX, leída en la dirección que casi nunca se menciona: $m = E/c^2$. La fórmula de Einstein no solo dice que la masa puede convertirse en energía; dice que <strong>la energía confinada en un sistema en reposo se comporta exactamente como masa</strong>.
         </p>
 
         <p>
@@ -139,7 +218,7 @@
           </summary>
           <div class="physics-box__body">
             <p>
-              En la cromodinámica cuántica moderna, la masa de un hadrón como el protón se calcula a partir del valor esperado del tensor energía-momento de la QCD en el estado de un protón en reposo, un cálculo verificado con alta precisión mediante simulaciones numéricas de QCD en retículo (<em>lattice QCD</em>) <a class="cite" href="#ref-7">[7]</a>.
+              En la cromodinámica cuántica moderna, la masa de un hadrón como el protón se calcula a partir del valor esperado del tensor energía-momento de la QCD en el estado de un protón en reposo, un cálculo verificado con alta precisión mediante simulaciones numéricas de <span class="glossary-term" data-term="lattice">QCD en retículo</span> (<em>lattice QCD</em>) <a class="cite" href="#ref-7">[7]</a>.
             </p>
             <p>
               Aunque la suma de las masas de corriente de los tres quarks de valencia ($2m_u + m_d$) es de apenas $\sim 9\text{ MeV}/c^2$ ($\sim 1\%$ de $m_p = 938.272\text{ MeV}/c^2$ <a class="cite" href="#ref-6">[6]</a>), en la descomposición formal de Ji la masa del protón se reparte entre cuatro contribuciones: la energía cinética de los quarks, la energía de los campos de gluones, la anomalía de traza de la QCD (un efecto puramente cuántico ligado a la escala de confinamiento $\Lambda_{\text{QCD}}$) y el término sigma de los quarks (que incluye el efecto de las masas de los quarks sobre el condensado interno y aporta cerca del 9 %). En cualquier lectura, la inmensa mayoría de la masa hadrónica emerge dinámicamente de la interacción fuerte, no del valor directo de las masas de los quarks.
@@ -149,7 +228,14 @@
       </div>
     </section>
 
-    <section id="seccion-2" class="chapter" data-theme-section="quantum">
+    <section
+      id="seccion-2"
+      class="chapter"
+      data-theme-section="quantum"
+      data-hud-id="seccion-2"
+      data-hud-scale="y = 2.9×10⁻⁶ → 0.99"
+      data-hud-regime="Campos cuánticos"
+    >
       <div class="prose container">
         <p class="chapter__eyebrow">Sección 02</p>
         <h2 class="chapter__title">Qué es realmente un campo cuántico (y por qué la &laquo;melaza&raquo; no es toda la historia)</h2>
@@ -181,11 +267,11 @@
         </p>
 
         <p>
-          ¿Cómo otorga entonces resistencia a la aceleración sin frenar el movimiento uniforme? La clave está en una propiedad cuántica llamada <strong>quiralidad</strong> (una suerte de &laquo;orientación interna&raquo; izquierda o derecha de las partículas elementales de materia). En el Modelo Estándar, un electrón sin masa viajaría siempre a la velocidad de la luz y mantendría su quiralidad fija para siempre. Pero al existir un campo de Higgs encendido en todo el espacio, el electrón interactúa continuamente con ese fondo, <strong>alternando entre su versión &laquo;izquierda&raquo; y su versión &laquo;derecha&raquo;</strong>. Ese vaivén incesante con el campo de fondo le impide viajar a la velocidad de la luz y lo obliga a comportarse como un objeto con inercia.
+          ¿Cómo otorga entonces resistencia a la aceleración sin frenar el movimiento uniforme? La clave está en una propiedad cuántica llamada <span class="glossary-term" data-term="quiralidad">quiralidad</span> (una suerte de &laquo;orientación interna&raquo; izquierda o derecha de las partículas elementales de materia). En el Modelo Estándar, un electrón sin masa viajaría siempre a la velocidad de la luz y mantendría su quiralidad fija para siempre. Pero al existir un campo de Higgs encendido en todo el espacio, el electrón interactúa continuamente con ese fondo, <strong>alternando entre su versión &laquo;izquierda&raquo; y su versión &laquo;derecha&raquo;</strong>. Ese vaivén incesante con el campo de fondo le impide viajar a la velocidad de la luz y lo obliga a comportarse como un objeto con inercia.
         </p>
 
         <p>
-          No todas las partículas interactúan con la misma intensidad con el campo de Higgs. La fuerza de ese enganche se mide mediante un número propio de cada partícula llamado <strong>acoplamiento de Yukawa</strong>:
+          No todas las partículas interactúan con la misma intensidad con el campo de Higgs. La fuerza de ese enganche se mide mediante un número propio de cada partícula llamado <span class="glossary-term" data-term="yukawa">acoplamiento de Yukawa</span>:
         </p>
 
         <ul class="editorial-list">
@@ -235,7 +321,14 @@
       </div>
     </section>
 
-    <section id="seccion-3" class="chapter" data-theme-section="symmetry">
+    <section
+      id="seccion-3"
+      class="chapter"
+      data-theme-section="symmetry"
+      data-hud-id="seccion-3"
+      data-hud-scale="t ≈ 10⁻¹¹ s · Tc ≈ 160 GeV"
+      data-hud-regime="Transición electrodébil"
+    >
       <div class="prose container">
         <p class="chapter__eyebrow">Sección 03</p>
         <h2 class="chapter__title">Ruptura espontánea de simetría: el instante en que el universo eligió un fondo</h2>
@@ -245,7 +338,7 @@
         </p>
 
         <p>
-          Para entonces, se sabía que las fuerzas fundamentales obedecen principios matemáticos muy estrictos llamados <strong>simetrías de gauge</strong>. Esas simetrías explicaban a la perfección el electromagnetismo, pero exigían una condición incómoda: las partículas portadoras de las fuerzas debían tener masa exactamente nula. Eso encajaba con el fotón, pero chocaba de frente con la <strong>fuerza nuclear débil</strong> (responsable de la desintegración radiactiva y de las reacciones nucleares que encienden el Sol). Como la fuerza débil solo actúa a distancias minúsculas, sus partículas mensajeras &mdash;los bosones $W^\pm$ y $Z^0$&mdash; debían ser muy pesadas. Si los físicos añadían sus masas &laquo;a mano&raquo; en las ecuaciones, la simetría se destruía y la teoría colapsaba en predicciones infinitas sin sentido.
+          Para entonces, se sabía que las fuerzas fundamentales obedecen principios matemáticos muy estrictos llamados <span class="glossary-term" data-term="gauge">simetrías de gauge</span>. Esas simetrías explicaban a la perfección el electromagnetismo, pero exigían una condición incómoda: las partículas portadoras de las fuerzas debían tener masa exactamente nula. Eso encajaba con el fotón, pero chocaba de frente con la <strong>fuerza nuclear débil</strong> (responsable de la desintegración radiactiva y de las reacciones nucleares que encienden el Sol). Como la fuerza débil solo actúa a distancias minúsculas, sus partículas mensajeras &mdash;los bosones $W^\pm$ y $Z^0$&mdash; debían ser muy pesadas. Si los físicos añadían sus masas &laquo;a mano&raquo; en las ecuaciones, la simetría se destruía y la teoría colapsaba en predicciones infinitas sin sentido.
         </p>
 
         <p>
@@ -285,10 +378,10 @@
 
         <figure class="lab-card reveal" id="lab-mexican-hat">
           <div class="lab-card__header">
-            <span class="lab-card__tag">Fig. 03 &mdash; Potencial escalar V(&phi;)</span>
+            <span class="lab-card__tag">Fig. 03 &mdash; Potencial escalar V(&phi;) &middot; Shader GLSL</span>
             <h3 class="lab-card__title">Superficie del Sombrero Mexicano en 3D</h3>
             <p class="lab-card__desc">
-              Rota la superficie del potencial escalar, reduce la temperatura cósmica y compara los modos angulares frente a la excitación radial del bosón de Higgs.
+              Rota la superficie equipotencial, reduce la temperatura cósmica y compara los modos angulares frente a la excitación radial del bosón de Higgs.
             </p>
           </div>
           <div class="lab-card__stage lab-card__stage--tall" data-lab-mount="mexican-hat"></div>
@@ -320,7 +413,14 @@
       </div>
     </section>
 
-    <section id="seccion-4" class="chapter" data-theme-section="editorial">
+    <section
+      id="seccion-4"
+      class="chapter"
+      data-theme-section="editorial"
+      data-hud-id="seccion-4"
+      data-hud-scale="a₀ ≈ 0.053 nm → ∞"
+      data-hud-regime="Escala atómica"
+    >
       <div class="prose container">
         <p class="chapter__eyebrow">Sección 04</p>
         <h2 class="chapter__title">Un universo sin Campo de Higgs: por qué desaparecerían los átomos</h2>
@@ -340,21 +440,58 @@
         <p>
           En mecánica cuántica, el tamaño típico de un átomo de hidrógeno viene dado por el <strong>radio de Bohr</strong> ($a_0 \approx 0.053\text{ nanómetros}$), y ese radio es <strong>inversamente proporcional a la masa del electrón</strong>. Cuanto menos masivo es el electrón, más se expande su nube de probabilidad alrededor del núcleo, debido al principio de incertidumbre de Heisenberg: encerrar una partícula muy liviana en un volumen pequeño exige imprimirle una energía cinética enorme.
         </p>
+      </div>
 
-        <p>Observa qué ocurre si giramos el dial cósmico del campo de Higgs hacia abajo:</p>
+      <div class="scrolly container--wide">
+        <div class="scrolly__steps">
+          <article class="scrolly-step is-active" data-field-step="100">
+            <span class="scrolly-step__code">v / v₀ = 100 %</span>
+            <h4>Estado actual del universo</h4>
+            <p>
+              Con el campo de Higgs en su valor real ($246.2\text{ GeV}$), el electrón posee $0.511\text{ MeV}/c^2$ de masa y queda ligado al protón en un radio característico de $0.053\text{ nm}$.
+            </p>
+          </article>
 
-        <ul class="editorial-list">
-          <li>
-            Al <strong>50 %</strong> de su intensidad actual, la masa del electrón cae a la mitad y cada átomo duplica su radio; toda la química conocida cambia drásticamente sus energías de enlace.
-          </li>
-          <li>
-            Al <strong>10 %</strong>, los átomos se inflan diez veces, las moléculas biológicas se vuelven frágiles y se deshacen con el calor ambiente más leve.
-          </li>
-          <li>
-            Al llegar al <strong>0 %</strong>, la masa del electrón se anula por completo. El radio de Bohr tiende al infinito. Un electrón sin masa está condenado por la relatividad especial a viajar siempre a la velocidad de la luz $c$. La atracción eléctrica del protón ya no puede vencer la energía cuántica necesaria para confinarlo: <strong>no existe ningún estado ligado estable</strong>. Los electrones escapan de los núcleos a la velocidad de la luz y los átomos dejan de existir.
-          </li>
-        </ul>
+          <article class="scrolly-step" data-field-step="50">
+            <span class="scrolly-step__code">v / v₀ = 50 %</span>
+            <h4>Átomos al doble de tamaño</h4>
+            <p>
+              Al reducir el campo a la mitad, la masa del electrón cae al 50 % y cada átomo duplica su radio; toda la química conocida cambia drásticamente sus energías de enlace.
+            </p>
+          </article>
 
+          <article class="scrolly-step" data-field-step="10">
+            <span class="scrolly-step__code">v / v₀ = 10 %</span>
+            <h4>Colapso de la química molecular</h4>
+            <p>
+              Al 10 %, los átomos se inflan diez veces, las moléculas biológicas se vuelven frágiles y se deshacen con el calor ambiente más leve.
+            </p>
+          </article>
+
+          <article class="scrolly-step" data-field-step="0">
+            <span class="scrolly-step__code">v / v₀ = 0 %</span>
+            <h4>Desaparición de los átomos</h4>
+            <p>
+              Al llegar al 0 %, la masa del electrón se anula y el radio de Bohr tiende al infinito. Condenado a viajar a velocidad $c$, ningún estado ligado es posible: los electrones escapan y los átomos dejan de existir.
+            </p>
+          </article>
+        </div>
+
+        <div class="scrolly__stage">
+          <figure class="lab-card lab-card--scrolly" id="lab-atom-collapse">
+            <div class="lab-card__header">
+              <span class="lab-card__tag">Fig. 04 &mdash; Confinamiento atómico</span>
+              <h3 class="lab-card__title">Interruptor del Campo de Higgs y radio de Bohr</h3>
+              <p class="lab-card__desc">
+                Desplázate por la secuencia o manipula el dial manualmente para observar cómo el protón conserva casi toda su masa mientras el átomo se desintegra.
+              </p>
+            </div>
+            <div class="lab-card__stage" data-lab-mount="atom-collapse"></div>
+          </figure>
+        </div>
+      </div>
+
+      <div class="prose container">
         <p>
           Y las consecuencias no terminan en el electrón. En un universo sin campo de Higgs, la física nuclear también se desmoronaría de dos maneras decisivas:
         </p>
@@ -371,17 +508,6 @@
         <p>
           Así se resuelve la paradoja inicial: el campo de Higgs no aporta la mayor parte de la masa de la materia, pero <strong>aporta la masa exacta donde la estructura del universo depende de ella</strong>. Sin el ancla del electrón, sin la jerarquía entre los quarks <em>up</em> y <em>down</em>, y sin el freno de los masivos bosones $W$ y $Z$, el cosmos sería una sopa difusa sin química, sin moléculas y sin observadores capaces de preguntarse por su origen.
         </p>
-
-        <figure class="lab-card reveal" id="lab-atom-collapse">
-          <div class="lab-card__header">
-            <span class="lab-card__tag">Fig. 04 &mdash; Confinamiento atómico</span>
-            <h3 class="lab-card__title">Interruptor del Campo de Higgs y radio de Bohr</h3>
-            <p class="lab-card__desc">
-              Reduce la intensidad del campo del 100 % al 0 % y observa cómo el radio de Bohr diverge hasta que el electrón escapa a velocidad $c$.
-            </p>
-          </div>
-          <div class="lab-card__stage" data-lab-mount="atom-collapse"></div>
-        </figure>
 
         <details class="physics-box">
           <summary class="physics-box__summary">
@@ -406,7 +532,14 @@
       </div>
     </section>
 
-    <section id="seccion-5" class="chapter" data-theme-section="lhc">
+    <section
+      id="seccion-5"
+      class="chapter"
+      data-theme-section="lhc"
+      data-hud-id="seccion-5"
+      data-hud-scale="√s = 8 TeV · τ ≈ 10⁻²² s"
+      data-hud-regime="Colisionador LHC"
+    >
       <div class="prose container">
         <p class="chapter__eyebrow">Sección 05</p>
         <h2 class="chapter__title">4 de julio de 2012: cómo se caza un destello que dura $10^{-22}$ segundos</h2>
@@ -445,7 +578,7 @@
         </p>
 
         <p>
-          El descubrimiento completó la última casilla vacía del Modelo Estándar y confirmó la existencia de la primera partícula fundamental escalar (espín 0) de la naturaleza. Sin embargo, lejos de cerrar la física de partículas, abrió un nuevo mapa de preguntas abiertas que hoy ocupan al LHC y a los proyectos de futuros colisionadores:
+          El descubrimiento completó la última casilla vacía del Modelo Estándar y confirmó la existencia de la primera partícula fundamental <span class="glossary-term" data-term="escalar">escalar</span> (espín 0) de la naturaleza. Sin embargo, lejos de cerrar la física de partículas, abrió un nuevo mapa de preguntas abiertas que hoy ocupan al LHC y a los proyectos de futuros colisionadores:
         </p>
 
         <ul class="editorial-list">
@@ -456,7 +589,7 @@
             <strong>La jerarquía de masas y los neutrinos:</strong> por qué los acoplamientos de Yukawa abarcan seis órdenes de magnitud entre el electrón y el quark <em>top</em>, y si el campo de Higgs participa también en el origen de la diminuta masa de los neutrinos.
           </li>
           <li>
-            <strong>La estabilidad del vacío cósmico:</strong> dados los valores medidos de las masas del bosón de Higgs ($125.2\text{ GeV}/c^2$) y del quark <em>top</em> ($172.6\text{ GeV}/c^2$), el Modelo Estándar sugiere que nuestro vacío actual podría ser <strong>metaestable</strong> &mdash;es decir, un mínimo local extremadamente longevo, mucho más estable que la edad actual del universo, pero no necesariamente el fondo absoluto más bajo posible&mdash; si no existe nueva física a energías muy altas.
+            <strong>La estabilidad del vacío cósmico:</strong> dados los valores medidos de las masas del bosón de Higgs ($125.2\text{ GeV}/c^2$) y del quark <em>top</em> ($172.6\text{ GeV}/c^2$), el Modelo Estándar sugiere que nuestro vacío actual podría ser <span class="glossary-term" data-term="metaestable">metaestable</span> &mdash;es decir, un mínimo local extremadamente longevo, mucho más estable que la edad actual del universo, pero no necesariamente el fondo absoluto más bajo posible&mdash; si no existe nueva física a energías muy altas.
           </li>
         </ul>
 
@@ -465,7 +598,7 @@
             <span class="lab-card__tag">Fig. 05 &mdash; Reconstrucción experimental LHC</span>
             <h3 class="lab-card__title">Colisiones protón-protón y resonancia de $125\text{ GeV}$</h3>
             <p class="lab-card__desc">
-              Acumula eventos en los canales $H \to \gamma\gamma$ y $H \to 4\ell$ hasta ver emerger la resonancia de $125.2\text{ GeV}/c^2$ con significancia $5\sigma$.
+              Acumula eventos en los canales $H \to \gamma\gamma$ y $H \to 4\ell$ o inspecciona la cinemática de un candidato individual de $125.2\text{ GeV}/c^2$.
             </p>
           </div>
           <div class="lab-card__stage" data-lab-mount="lhc-collision"></div>
@@ -506,7 +639,14 @@
       </div>
     </section>
 
-    <section id="referencias" class="chapter chapter--references" data-theme-section="editorial">
+    <section
+      id="referencias"
+      class="chapter chapter--references"
+      data-theme-section="editorial"
+      data-hud-id="referencias"
+      data-hud-scale="1964 – 2024"
+      data-hud-regime="Bibliografía"
+    >
       <div class="prose container">
         <p class="chapter__eyebrow">Bibliografía</p>
         <h2 class="chapter__title">Referencias bibliográficas</h2>
@@ -534,7 +674,7 @@
             Dürr, S., et al. (2008). Ab-Initio Determination of Light Hadron Masses. <em>Science</em>, 322(5905), 1224&ndash;1227.
           </li>
           <li id="ref-8">
-            Wilczek, F. (1999). Mass without Mass I: Most of Matter. <em>Physics Today</em>, 52(11), 11–13.
+            Wilczek, F. (1999). Mass without Mass I: Most of Matter. <em>Physics Today</em>, 52(11), 11&ndash;13.
           </li>
           <li id="ref-9">
             Lederman, L., y Teresi, D. (1993). <em>The God Particle: If the Universe Is the Answer, What Is the Question?</em> Houghton Mifflin.
@@ -558,6 +698,7 @@
         <p class="site-footer__label">Autores</p>
         <p class="site-footer__authors">Daniel Enrique Arias Montero</p>
         <p class="site-footer__authors">Abraham José Gómez Sarmiento</p>
+        <p class="site-footer__program">Programa de Ingeniería Mecatrónica</p>
       </div>
     </div>
   </footer>

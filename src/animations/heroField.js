@@ -1,3 +1,5 @@
+import { quantumAudio } from '../utils/quantumAudio.js';
+
 export function initHeroField(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
@@ -79,8 +81,9 @@ export function initHeroField(canvasId) {
         x: localX,
         y: localY,
         radius: 6,
-        alpha: 0.75
+        alpha: 0.78
       });
+      quantumAudio.playFieldRipple(localX / rect.width, localY / rect.height);
     }
   }
 

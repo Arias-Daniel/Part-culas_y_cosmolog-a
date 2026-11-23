@@ -1,6 +1,56 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
+const VERTEX_SHADER = `
+  varying vec3 vPos;
+  varying vec3 vNormal;
+
+  void main() {
+    vPos = position;
+    vNormal = normalize(normalMatrix * normal);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const FRAGMENT_SHADER = `
+  uniform float uRMin;
+  uniform float uTime;
+  varying vec3 vPos;
+  varying vec3 vNormal;
+
+  void main() {
+    float r = length(vPos.xz);
+    float normY = clamp((vPos.y + 1.05) / 2.9, 0.0, 1.0);
+
+    vec3 colValley = vec3(0.96, 0.62, 0.04);
+    vec3 colMid = vec3(0.49, 0.23, 0.93);
+    vec3 colRim = vec3(0.22, 0.74, 0.97);
+
+    vec3 baseCol = normY < 0.45
+      ? mix(colValley, colMid, normY / 0.45)
+      : mix(colMid, colRim, (normY - 0.45) / 0.55);
+
+    vec3 lightDir = normalize(vec3(0.55, 0.85, 0.45));
+    float diff = 0.58 + 0.42 * max(dot(normalize(vNormal), lightDir), 0.0);
+    baseCol *= diff;
+
+    // Curvas equipotenciales luminosas
+    float contour = abs(fract(vPos.y * 4.2 + 0.5) - 0.5);
+    float lineMask = 1.0 - smoothstep(0.018, 0.045, contour);
+    baseCol += vec3(0.32, 0.28, 0.45) * lineMask * 0.42;
+
+    // Resplandor en el valle circular degenerado
+    if (uRMin > 0.05) {
+      float valleyDist = abs(r - uRMin);
+      float valleyGlow = exp(-valleyDist * valleyDist * 55.0);
+      float pulse = 0.82 + 0.18 * sin(uTime * 3.0);
+      baseCol += vec3(0.98, 0.75, 0.18) * valleyGlow * 0.65 * pulse;
+    }
+
+    gl_FragColor = vec4(baseCol, 0.92);
+  }
+`;
+
 export function initMexicanHat3D() {
   const mount = document.querySelector('[data-lab-mount="mexican-hat"]');
   if (!mount) return;
@@ -82,19 +132,15 @@ export function initMexicanHat3D() {
   orbit.maxDistance = 9.5;
   orbit.maxPolarAngle = Math.PI * 0.48;
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.72);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
   scene.add(ambientLight);
 
-  const dirLight = new THREE.DirectionalLight(0xfff1d6, 1.15);
+  const dirLight = new THREE.DirectionalLight(0xfff1d6, 1.1);
   dirLight.position.set(5, 8, 4);
   scene.add(dirLight);
 
-  const backLight = new THREE.DirectionalLight(0xc084fc, 0.65);
-  backLight.position.set(-5, 3, -5);
-  scene.add(backLight);
-
-  const RADIAL_SEGMENTS = 52;
-  const ANGULAR_SEGMENTS = 72;
+  const RADIAL_SEGMENTS = 56;
+  const ANGULAR_SEGMENTS = 80;
   const MAX_R = 2.15;
   const LAMBDA = 0.56;
   const TC = 160;
@@ -129,7 +175,6 @@ export function initMexicanHat3D() {
   const geometry = new THREE.BufferGeometry();
   const vertexCount = (RADIAL_SEGMENTS + 1) * (ANGULAR_SEGMENTS + 1);
   const positions = new Float32Array(vertexCount * 3);
-  const colors = new Float32Array(vertexCount * 3);
   const indices = [];
 
   for (let i = 0; i < RADIAL_SEGMENTS; i++) {
@@ -144,59 +189,53 @@ export function initMexicanHat3D() {
 
   geometry.setIndex(indices);
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-  const surfaceMat = new THREE.MeshStandardMaterial({
-    vertexColors: true,
-    roughness: 0.42,
-    metalness: 0.12,
+  const shaderMat = new THREE.ShaderMaterial({
+    uniforms: {
+      uRMin: { value: 1.35 },
+      uTime: { value: 0 }
+    },
+    vertexShader: VERTEX_SHADER,
+    fragmentShader: FRAGMENT_SHADER,
     side: THREE.DoubleSide,
-    transparent: true,
-    opacity: 0.9
+    transparent: true
   });
 
-  const surfaceMesh = new THREE.Mesh(geometry, surfaceMat);
+  const surfaceMesh = new THREE.Mesh(geometry, shaderMat);
   scene.add(surfaceMesh);
 
-  const wireMat = new THREE.MeshBasicMaterial({
-    color: 0xd8b4fe,
-    wireframe: true,
+  // Estela 3D de trayectoria del estado del campo
+  const TRAIL_LENGTH = 48;
+  const trailPoints = Array.from({ length: TRAIL_LENGTH }, () => new THREE.Vector3());
+  const trailGeo = new THREE.BufferGeometry().setFromPoints(trailPoints);
+  const trailMat = new THREE.LineBasicMaterial({
+    color: 0xfef08a,
     transparent: true,
-    opacity: 0.14
+    opacity: 0.72
   });
-  const wireMesh = new THREE.Mesh(geometry, wireMat);
-  scene.add(wireMesh);
-
-  const valleyRingGeo = new THREE.RingGeometry(1, 1.03, 72);
-  valleyRingGeo.rotateX(-Math.PI / 2);
-  const valleyRingMat = new THREE.MeshBasicMaterial({
-    color: 0xf59e0b,
-    side: THREE.DoubleSide,
-    transparent: true,
-    opacity: 0.7
-  });
-  const valleyRing = new THREE.Mesh(valleyRingGeo, valleyRingMat);
-  scene.add(valleyRing);
+  const trailLine = new THREE.Line(trailGeo, trailMat);
+  scene.add(trailLine);
 
   const ballGeo = new THREE.SphereGeometry(0.11, 24, 24);
   const ballMat = new THREE.MeshStandardMaterial({
     color: 0xf59e0b,
     emissive: 0xd97706,
-    emissiveIntensity: 0.55,
-    roughness: 0.25
+    emissiveIntensity: 0.65,
+    roughness: 0.22
   });
   const ballMesh = new THREE.Mesh(ballGeo, ballMat);
   scene.add(ballMesh);
 
-  const colorLow = new THREE.Color(0xf59e0b);
-  const colorMid = new THREE.Color(0x7c3aed);
-  const colorHigh = new THREE.Color(0x38bdf8);
-  const tempColor = new THREE.Color();
+  function resetTrail(pos) {
+    for (let i = 0; i < TRAIL_LENGTH; i++) {
+      trailPoints[i].copy(pos);
+    }
+    trailGeo.setFromPoints(trailPoints);
+  }
 
   function updateSurface() {
     const mu2 = mu2FromTemp(temperature);
     const posAttr = geometry.attributes.position;
-    const colAttr = geometry.attributes.color;
     const yScale = 0.52;
 
     let ptr = 0;
@@ -205,36 +244,19 @@ export function initMexicanHat3D() {
       const v = potential(r, mu2);
       const y = Math.min(v * yScale, 2.1);
 
-      const norm = THREE.MathUtils.clamp((y + 1.05) / 2.8, 0, 1);
-      if (norm < 0.45) {
-        tempColor.lerpColors(colorLow, colorMid, norm / 0.45);
-      } else {
-        tempColor.lerpColors(colorMid, colorHigh, (norm - 0.45) / 0.55);
-      }
-
       for (let j = 0; j <= ANGULAR_SEGMENTS; j++) {
         const theta = (j / ANGULAR_SEGMENTS) * Math.PI * 2;
         const x = r * Math.cos(theta);
         const z = r * Math.sin(theta);
 
         posAttr.setXYZ(ptr, x, y, z);
-        colAttr.setXYZ(ptr, tempColor.r, tempColor.g, tempColor.b);
         ptr += 1;
       }
     }
 
     posAttr.needsUpdate = true;
-    colAttr.needsUpdate = true;
     geometry.computeVertexNormals();
-
-    const rMin = rMinFromMu2(mu2);
-    if (rMin > 0.05) {
-      valleyRing.visible = true;
-      valleyRing.scale.set(rMin, 1, rMin);
-      valleyRing.position.y = potential(rMin, mu2) * yScale + 0.02;
-    } else {
-      valleyRing.visible = false;
-    }
+    shaderMat.uniforms.uRMin.value = rMinFromMu2(mu2);
   }
 
   function updateMetrics() {
@@ -262,17 +284,26 @@ export function initMexicanHat3D() {
       stateTheta = Math.random() * Math.PI * 2;
       ballMat.color.setHex(0xf59e0b);
       ballMat.emissive.setHex(0xd97706);
+      trailMat.color.setHex(0xfef08a);
     } else if (nextMode === 'angular') {
       stateR = Math.max(rMin, 0.05);
       stateVr = 0;
       ballMat.color.setHex(0xc084fc);
       ballMat.emissive.setHex(0x9333ea);
+      trailMat.color.setHex(0xd8b4fe);
     } else if (nextMode === 'radial') {
       stateR = rMin;
       stateVr = 0;
       ballMat.color.setHex(0x38bdf8);
       ballMat.emissive.setHex(0x0284c7);
+      trailMat.color.setHex(0x7dd3fc);
     }
+
+    const bx = stateR * Math.cos(stateTheta);
+    const bz = stateR * Math.sin(stateTheta);
+    const by = Math.min(potential(stateR, mu2) * 0.52, 2.1) + 0.12;
+    ballMesh.position.set(bx, by, bz);
+    resetTrail(ballMesh.position);
   }
 
   tempSlider.addEventListener('input', () => {
@@ -314,6 +345,10 @@ export function initMexicanHat3D() {
     const bz = stateR * Math.sin(stateTheta);
     const by = Math.min(potential(stateR, mu2) * yScale, 2.1) + 0.12;
     ballMesh.position.set(bx, by, bz);
+
+    trailPoints.pop();
+    trailPoints.unshift(ballMesh.position.clone());
+    trailGeo.setFromPoints(trailPoints);
   }
 
   function resize() {
@@ -327,6 +362,7 @@ export function initMexicanHat3D() {
   function renderFrame() {
     if (!isVisible) return;
     time += 0.016;
+    shaderMat.uniforms.uTime.value = time;
     stepBall();
     orbit.update();
     renderer.render(scene, camera);

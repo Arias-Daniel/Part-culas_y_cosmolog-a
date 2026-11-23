@@ -1,3 +1,5 @@
+import { quantumAudio } from '../utils/quantumAudio.js';
+
 const PARTICLES = {
   photon: {
     name: 'Fotón',
@@ -6,6 +8,7 @@ const PARTICLES = {
     mass: '0 MeV/c²',
     speed: 4.2,
     flipInterval: Infinity,
+    audioIntensity: 0,
     color: '#fde047',
     note: 'No interactúa con el campo de Higgs; viaja siempre a velocidad c.'
   },
@@ -16,6 +19,7 @@ const PARTICLES = {
     mass: '0.511 MeV/c²',
     speed: 3.1,
     flipInterval: 78,
+    audioIntensity: 0.2,
     color: '#38bdf8',
     note: 'Acoplamiento muy débil: intercambia quiralidad L/R de forma espaciada.'
   },
@@ -26,6 +30,7 @@ const PARTICLES = {
     mass: '4.7 MeV/c²',
     speed: 2.35,
     flipInterval: 42,
+    audioIntensity: 0.48,
     color: '#a78bfa',
     note: 'Interacción intermedia con el campo de fondo; mayor inercia que el electrón.'
   },
@@ -36,6 +41,7 @@ const PARTICLES = {
     mass: '172.6 GeV/c²',
     speed: 1.25,
     flipInterval: 13,
+    audioIntensity: 0.95,
     color: '#fb7185',
     note: 'Acoplamiento casi máximo: alterna su quiralidad L/R constantemente.'
   }
@@ -155,6 +161,7 @@ export function initYukawaCoupling() {
         chirality = chirality === 'L' ? 'R' : 'L';
         chiralityEl.textContent = chirality === 'L' ? 'Izquierda (L)' : 'Derecha (R)';
         pulses.push({ x: px, y: py, radius: 6, alpha: 0.9 });
+        quantumAudio.playChiralityFlip(p.audioIntensity);
       }
     } else {
       py = height / 2;
@@ -232,19 +239,19 @@ export function initYukawaCoupling() {
     ctx.fill();
 
     ctx.fillStyle = '#080c12';
-    ctx.font = '600 12px "JetBrains Mono", monospace';
+    ctx.font = '600 12px "IBM Plex Mono", monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(p.symbol, px, py + 0.5);
 
     if (currentKey !== 'photon') {
       ctx.fillStyle = '#e8eef7';
-      ctx.font = '500 11px "JetBrains Mono", monospace';
+      ctx.font = '500 11px "IBM Plex Mono", monospace';
       ctx.fillText(chirality, px, py - 22);
     }
 
     ctx.fillStyle = 'rgba(232, 238, 247, 0.55)';
-    ctx.font = '500 11px "JetBrains Mono", monospace';
+    ctx.font = '500 11px "IBM Plex Mono", monospace';
     ctx.textAlign = 'left';
     ctx.fillText('CAMPO DE HIGGS EN EL VACÍO: v ≈ 246.2 GeV (SIN FRICCIÓN)', 14, 22);
   }

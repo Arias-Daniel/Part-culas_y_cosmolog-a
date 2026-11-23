@@ -1,3 +1,6 @@
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { quantumAudio } from '../utils/quantumAudio.js';
+
 export function initAtomCollapseLab() {
   const mount = document.querySelector('[data-lab-mount="atom-collapse"]');
   if (!mount) return;
@@ -104,7 +107,7 @@ export function initAtomCollapseLab() {
     );
   }
 
-  function setField(value) {
+  function setField(value, playAudio = true) {
     const prev = fieldPercent;
     fieldPercent = value;
     slider.value = String(value);
@@ -122,16 +125,38 @@ export function initAtomCollapseLab() {
       const ty = Math.cos(electronAngle);
       const mag = Math.hypot(tx, ty) || 1;
       escapeDir = { x: tx / mag, y: ty / mag };
+      if (playAudio) quantumAudio.playAtomEscape();
     } else if (fieldPercent > 0) {
       isEscaping = false;
+      if (playAudio && prev !== fieldPercent) {
+        quantumAudio.playAtomScaleStep(fieldPercent);
+      }
     }
 
     updateMetrics();
   }
 
-  slider.addEventListener('input', () => setField(Number(slider.value)));
+  slider.addEventListener('input', () => setField(Number(slider.value), true));
   presetBtns.forEach((btn) => {
-    btn.addEventListener('click', () => setField(Number(btn.dataset.preset)));
+    btn.addEventListener('click', () => setField(Number(btn.dataset.preset), true));
+  });
+
+  // Vinculacion con scrollytelling anclado de la Seccion 04
+  const scrollySteps = document.querySelectorAll('.scrolly-step[data-field-step]');
+  scrollySteps.forEach((step) => {
+    const targetField = Number(step.dataset.fieldStep);
+    const activateStep = () => {
+      scrollySteps.forEach((s) => s.classList.toggle('is-active', s === step));
+      setField(targetField, false);
+    };
+
+    ScrollTrigger.create({
+      trigger: step,
+      start: 'top 58%',
+      end: 'bottom 58%',
+      onEnter: activateStep,
+      onEnterBack: activateStep
+    });
   });
 
   function resize() {
@@ -186,9 +211,9 @@ export function initAtomCollapseLab() {
     if (!isEscaping) {
       const cloudAlpha = 0.08 + f * 0.14;
       const grad = ctx.createRadialGradient(cx, cy, 8, cx, cy, orbitalR * 1.3);
-      grad.addColorStop(0, `rgba(15, 82, 186, ${cloudAlpha})`);
-      grad.addColorStop(0.65, `rgba(15, 82, 186, ${cloudAlpha * 0.55})`);
-      grad.addColorStop(1, 'rgba(15, 82, 186, 0)');
+      grad.addColorStop(0, `rgba(19, 71, 154, ${cloudAlpha})`);
+      grad.addColorStop(0.65, `rgba(19, 71, 154, ${cloudAlpha * 0.55})`);
+      grad.addColorStop(1, 'rgba(19, 71, 154, 0)');
       ctx.fillStyle = grad;
       ctx.beginPath();
       ctx.arc(cx, cy, orbitalR * 1.3, 0, Math.PI * 2);
@@ -197,7 +222,7 @@ export function initAtomCollapseLab() {
       ctx.beginPath();
       ctx.arc(cx, cy, orbitalR, 0, Math.PI * 2);
       ctx.setLineDash([5, 5]);
-      ctx.strokeStyle = `rgba(15, 82, 186, ${0.22 + f * 0.35})`;
+      ctx.strokeStyle = `rgba(19, 71, 154, ${0.22 + f * 0.35})`;
       ctx.lineWidth = 1.5;
       ctx.stroke();
       ctx.setLineDash([]);
@@ -207,7 +232,7 @@ export function initAtomCollapseLab() {
         const r = orbitalR * dot.radialFactor;
         const x = cx + Math.cos(dot.angle) * r;
         const y = cy + Math.sin(dot.angle) * r;
-        ctx.fillStyle = `rgba(15, 82, 186, ${0.15 + f * 0.32})`;
+        ctx.fillStyle = `rgba(19, 71, 154, ${0.15 + f * 0.32})`;
         ctx.beginPath();
         ctx.arc(x, y, dot.size, 0, Math.PI * 2);
         ctx.fill();
@@ -219,14 +244,14 @@ export function initAtomCollapseLab() {
 
       ctx.beginPath();
       ctx.arc(ex, ey, 7.5, 0, Math.PI * 2);
-      ctx.fillStyle = '#0f52ba';
+      ctx.fillStyle = '#13479a';
       ctx.fill();
       ctx.lineWidth = 2;
       ctx.strokeStyle = '#ffffff';
       ctx.stroke();
 
-      ctx.fillStyle = '#181a1f';
-      ctx.font = '600 11px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#14171c';
+      ctx.font = '600 11px "IBM Plex Mono", monospace';
       ctx.textAlign = 'left';
       ctx.fillText('e⁻', ex + 11, ey + 4);
     } else {
@@ -262,15 +287,15 @@ export function initAtomCollapseLab() {
       ctx.stroke();
 
       ctx.fillStyle = '#b91c1c';
-      ctx.font = '600 11px "JetBrains Mono", monospace';
+      ctx.font = '600 11px "IBM Plex Mono", monospace';
       ctx.textAlign = 'left';
       ctx.fillText('e⁻ (v = c)', escapePos.x + 11, escapePos.y + 4);
     }
 
     drawNucleus(cx, cy);
 
-    ctx.fillStyle = 'rgba(24, 26, 31, 0.62)';
-    ctx.font = '500 11px "JetBrains Mono", monospace';
+    ctx.fillStyle = 'rgba(20, 23, 28, 0.62)';
+    ctx.font = '500 11px "IBM Plex Mono", monospace';
     ctx.textAlign = 'left';
     ctx.fillText(
       isEscaping

@@ -11,6 +11,8 @@ import renderMathInElement from 'katex/contrib/auto-render';
 
 import { initHeroField } from './animations/heroField.js';
 import { initScrollThemes } from './animations/scrollThemes.js';
+import { initAudioToggle } from './utils/quantumAudio.js';
+import { initCosmicHud, initGlossary, initLabFullscreen } from './utils/uiEnhancements.js';
 import { initProtonMassLab } from './labs/protonMassLab.js';
 import { initYukawaCoupling } from './labs/yukawaCoupling.js';
 import { initMexicanHat3D } from './labs/mexicanHat3D.js';
@@ -67,6 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroField('hero-field-canvas');
   initScrollThemes();
   initPhysicsBoxes();
+  initAudioToggle();
+  initCosmicHud();
+  initGlossary();
+  initLabFullscreen();
   initProtonMassLab();
   initYukawaCoupling();
   initMexicanHat3D();

@@ -1,3 +1,5 @@
+import { quantumAudio } from '../utils/quantumAudio.js';
+
 const CHANNELS = {
   gg: {
     label: 'H → γγ (dos fotones)',
@@ -28,6 +30,10 @@ export function initLhcCollisionLab() {
   canvas.className = 'lab-canvas lab-canvas--tall';
   canvas.setAttribute('aria-label', 'Simulación de colisiones en el LHC e histograma de masa invariante');
 
+  const inspector = document.createElement('div');
+  inspector.className = 'lhc-inspector';
+  inspector.hidden = true;
+
   const metrics = document.createElement('div');
   metrics.className = 'lab-metrics';
   metrics.innerHTML = `
@@ -53,14 +59,15 @@ export function initLhcCollisionLab() {
       <button type="button" class="lab-btn" data-channel="fourl" aria-pressed="false">H → 4ℓ</button>
     </div>
     <div class="lab-btn-group" role="group" aria-label="Inyección de colisiones">
-      <button type="button" class="lab-btn" data-inject="100">+100 eventos</button>
-      <button type="button" class="lab-btn" data-inject="1000">+1000 eventos</button>
-      <button type="button" class="lab-btn" data-inject="10000">+10 000 eventos</button>
+      <button type="button" class="lab-btn" data-inject="100">+100</button>
+      <button type="button" class="lab-btn" data-inject="1000">+1000</button>
+      <button type="button" class="lab-btn" data-inject="10000">+10 000</button>
+      <button type="button" class="lab-btn" data-inspect>Evento candidato</button>
       <button type="button" class="lab-btn" data-reset>Reiniciar</button>
     </div>
   `;
 
-  mount.append(canvas, metrics, controls);
+  mount.append(canvas, inspector, metrics, controls);
 
   const ctx = canvas.getContext('2d');
   const eventsEl = metrics.querySelector('[data-events-val]');
@@ -68,6 +75,7 @@ export function initLhcCollisionLab() {
   const sigmaEl = metrics.querySelector('[data-sigma-val]');
   const channelBtns = controls.querySelectorAll('[data-channel]');
   const injectBtns = controls.querySelectorAll('[data-inject]');
+  const inspectBtn = controls.querySelector('[data-inspect]');
   const resetBtn = controls.querySelector('[data-reset]');
 
   const MIN_MASS = 100;
@@ -84,6 +92,7 @@ export function initLhcCollisionLab() {
   let bgBins = new Int32Array(BIN_COUNT);
   let activeEventTracks = [];
   let flashAlpha = 0;
+  let discoveryPlayed = false;
   let rafId = null;
   let isVisible = false;
 
@@ -117,11 +126,14 @@ export function initLhcCollisionLab() {
 
     const count = ch.trackCount;
     for (let i = 0; i < count; i++) {
-      const spread = count === 2 ? i * Math.PI + (Math.random() - 0.5) * 0.4 : (i * Math.PI * 2) / 4 + (Math.random() - 0.5) * 0.35;
+      const spread =
+        count === 2
+          ? i * Math.PI + (Math.random() - 0.5) * 0.35
+          : (i * Math.PI * 2) / 4 + (Math.random() - 0.5) * 0.3;
       tracks.push({
         angle: baseAngle + spread,
         length: count === 2 ? 0.78 : 0.96,
-        curve: count === 2 ? 0 : (i % 2 === 0 ? 0.12 : -0.12),
+        curve: count === 2 ? 0 : i % 2 === 0 ? 0.12 : -0.12,
         highlight: true,
         isSignal
       });
@@ -131,7 +143,31 @@ export function initLhcCollisionLab() {
     flashAlpha = 0.85;
   }
 
-  function injectEvents(count) {
+  function inspectCandidateEvent() {
+    spawnDetectorEvent(true);
+    inspector.hidden = false;
+
+    if (channelKey === 'gg') {
+      const pt1 = (61.4 + (Math.random() - 0.5) * 4).toFixed(1);
+      const pt2 = (57.8 + (Math.random() - 0.5) * 4).toFixed(1);
+      inspector.innerHTML = `
+        <span>CANAL: H → γγ</span>
+        <span>pT(γ₁) = ${pt1} GeV · pT(γ₂) = ${pt2} GeV</span>
+        <span>Δφ = 174.2° · m_inv = 125.2 GeV/c²</span>
+      `;
+    } else {
+      const mZ1 = (91.1 + (Math.random() - 0.5) * 0.6).toFixed(1);
+      const mZ2 = (26.4 + (Math.random() - 0.5) * 1.4).toFixed(1);
+      inspector.innerHTML = `
+        <span>CANAL: H → ZZ* → μ⁺μ⁻e⁺e⁻</span>
+        <span>m(Z₁) = ${mZ1} GeV · m(Z₂*) = ${mZ2} GeV</span>
+        <span>m_inv(4ℓ) = 125.2 GeV/c²</span>
+      `;
+    }
+    quantumAudio.playFieldRipple(0.65, 0.3);
+  }
+
+  function injectEvents(count, silent = false) {
     const ch = CHANNELS[channelKey];
     let lastWasSignal = false;
 
@@ -151,7 +187,8 @@ export function initLhcCollisionLab() {
     }
 
     spawnDetectorEvent(lastWasSignal || count >= 100);
-    updateStats();
+    if (!silent) quantumAudio.playLhcClick(count);
+    updateStats(!silent);
   }
 
   function resetData() {
@@ -160,10 +197,12 @@ export function initLhcCollisionLab() {
     bgBins.fill(0);
     activeEventTracks = [];
     flashAlpha = 0;
-    updateStats();
+    discoveryPlayed = false;
+    inspector.hidden = true;
+    updateStats(false);
   }
 
-  function updateStats() {
+  function updateStats(allowChime = true) {
     eventsEl.textContent = totalEvents.toLocaleString('es-CO');
 
     const signalStart = Math.floor((122 - MIN_MASS) / BIN_WIDTH);
@@ -185,6 +224,10 @@ export function initLhcCollisionLab() {
     if (significance >= 5) {
       sigmaEl.textContent = `${significance.toFixed(1)} σ (Descubrimiento >= 5σ)`;
       peakEl.textContent = `${(weightedSum / Math.max(sigWindow, 1)).toFixed(1)} GeV/c²`;
+      if (allowChime && !discoveryPlayed) {
+        discoveryPlayed = true;
+        quantumAudio.playDiscoveryChime();
+      }
     } else if (significance >= 2) {
       sigmaEl.textContent = `${significance.toFixed(1)} σ (Indicio)`;
       peakEl.textContent = `${(weightedSum / Math.max(sigWindow, 1)).toFixed(1)} GeV/c²`;
@@ -199,14 +242,15 @@ export function initLhcCollisionLab() {
       channelKey = btn.dataset.channel;
       channelBtns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
       resetData();
-      injectEvents(400);
+      injectEvents(400, true);
     });
   });
 
   injectBtns.forEach((btn) => {
-    btn.addEventListener('click', () => injectEvents(Number(btn.dataset.inject)));
+    btn.addEventListener('click', () => injectEvents(Number(btn.dataset.inject), false));
   });
 
+  inspectBtn.addEventListener('click', inspectCandidateEvent);
   resetBtn.addEventListener('click', resetData);
 
   function resize() {
@@ -230,9 +274,7 @@ export function initLhcCollisionLab() {
       ctx.beginPath();
       ctx.arc(cx, cy, maxR * r, 0, Math.PI * 2);
       ctx.strokeStyle =
-        idx === 2
-          ? 'rgba(34, 211, 238, 0.28)'
-          : 'rgba(148, 163, 184, 0.16)';
+        idx === 2 ? 'rgba(34, 211, 238, 0.28)' : 'rgba(148, 163, 184, 0.16)';
       ctx.lineWidth = idx === 2 ? 1.5 : 1;
       ctx.stroke();
     });
@@ -280,7 +322,7 @@ export function initLhcCollisionLab() {
     }
 
     ctx.fillStyle = 'rgba(230, 237, 245, 0.65)';
-    ctx.font = '500 11px "JetBrains Mono", monospace';
+    ctx.font = '500 11px "IBM Plex Mono", monospace';
     ctx.textAlign = 'center';
     ctx.fillText(`DETECTOR TRANSVERSAL (${ch.label})`, cx, y0 + 20);
   }
@@ -335,7 +377,7 @@ export function initLhcCollisionLab() {
     }
 
     ctx.fillStyle = 'rgba(230, 237, 245, 0.65)';
-    ctx.font = '500 11px "JetBrains Mono", monospace';
+    ctx.font = '500 11px "IBM Plex Mono", monospace';
     ctx.textAlign = 'left';
     ctx.fillText('MASA INVARIANTE (GeV/c²)', left, y0 + 20);
 
@@ -391,6 +433,6 @@ export function initLhcCollisionLab() {
   intersectionObserver.observe(mount);
 
   resize();
-  injectEvents(400);
+  injectEvents(400, true);
   draw();
 }
