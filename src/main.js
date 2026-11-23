@@ -13,6 +13,9 @@ import { initHeroField } from './animations/heroField.js';
 import { initScrollThemes } from './animations/scrollThemes.js';
 import { initProtonMassLab } from './labs/protonMassLab.js';
 import { initYukawaCoupling } from './labs/yukawaCoupling.js';
+import { initMexicanHat3D } from './labs/mexicanHat3D.js';
+import { initAtomCollapseLab } from './labs/atomCollapseLab.js';
+import { initLhcCollisionLab } from './labs/lhcCollisionLab.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,4 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPhysicsBoxes();
   initProtonMassLab();
   initYukawaCoupling();
+  initMexicanHat3D();
+  initAtomCollapseLab();
+  initLhcCollisionLab();
 });
